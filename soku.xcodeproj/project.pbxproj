@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3A34C18224D5507700B261C3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34C18124D5507700B261C3 /* Extensions.swift */; };
+		3A3E357D24D659A500661C51 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E357C24D659A500661C51 /* Service.swift */; };
+		3A3E357F24D65A3400661C51 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E357E24D65A3400661C51 /* LoginViewController.swift */; };
+		3A3E358324D6669E00661C51 /* AddNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E358224D6669E00661C51 /* AddNewsViewController.swift */; };
 		3A6D6A7824D598F900DD546F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A6D6A7724D598F800DD546F /* GoogleService-Info.plist */; };
 		3A6D6A7B24D59A5500DD546F /* Constracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A6D6A7A24D59A5500DD546F /* Constracts.swift */; };
 		3AB1D6AF24D5598F002EF245 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1D6AE24D5598F002EF245 /* HomeViewController.swift */; };
@@ -24,6 +27,9 @@
 
 /* Begin PBXFileReference section */
 		3A34C18124D5507700B261C3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3A3E357C24D659A500661C51 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		3A3E357E24D65A3400661C51 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3A3E358224D6669E00661C51 /* AddNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewsViewController.swift; sourceTree = "<group>"; };
 		3A6D6A7724D598F800DD546F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3A6D6A7A24D59A5500DD546F /* Constracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constracts.swift; sourceTree = "<group>"; };
 		3AB1D6AE24D5598F002EF245 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +68,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3A3E357B24D6599600661C51 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				3A3E357C24D659A500661C51 /* Service.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		3A6D6A7924D59A2F00DD546F /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,9 +88,11 @@
 		3AB1D6AD24D55927002EF245 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				3A3E357E24D65A3400661C51 /* LoginViewController.swift */,
 				3AB1D6B024D55A08002EF245 /* MainTabController.swift */,
 				3AB1D6AE24D5598F002EF245 /* HomeViewController.swift */,
 				3AD7C63824D528B700655A15 /* NewsDetailViewController.swift */,
+				3A3E358224D6669E00661C51 /* AddNewsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -115,6 +131,7 @@
 				3AD7C62624D5286300655A15 /* SceneDelegate.swift */,
 				3AB1D6B224D55DC0002EF245 /* View */,
 				3AB1D6AD24D55927002EF245 /* ViewControllers */,
+				3A3E357B24D6599600661C51 /* API */,
 				3A6D6A7924D59A2F00DD546F /* Extensions */,
 				3AD7C62D24D5286900655A15 /* Assets.xcassets */,
 				3AD7C62F24D5286900655A15 /* LaunchScreen.storyboard */,
@@ -255,8 +272,11 @@
 				3AB1D6B124D55A08002EF245 /* MainTabController.swift in Sources */,
 				3AD7C62724D5286300655A15 /* SceneDelegate.swift in Sources */,
 				3AD7C63924D528B700655A15 /* NewsDetailViewController.swift in Sources */,
+				3A3E358324D6669E00661C51 /* AddNewsViewController.swift in Sources */,
+				3A3E357D24D659A500661C51 /* Service.swift in Sources */,
 				3A6D6A7B24D59A5500DD546F /* Constracts.swift in Sources */,
 				3A34C18224D5507700B261C3 /* Extensions.swift in Sources */,
+				3A3E357F24D65A3400661C51 /* LoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

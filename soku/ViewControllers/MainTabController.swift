@@ -47,11 +47,18 @@ class MainTabController : UITabBarController {
             let uid = currentUser.uid
             self.configureTabControllers(uid: uid)
         } else {
-            self.showErrorAlert(message: "申し訳ありません、認証に失敗しました。")
+            //            self.showErrorAlert(message: "申し訳ありません、認証に失敗しました。")
+            let loginVC = LoginViewController()
+            loginVC.modalPresentationStyle = .fullScreen
             
-         
+            DispatchQueue.main.async {
+                self.present(loginVC, animated: true, completion: nil)
+                
+            }
+            
+            
         }
-
+        
         
     }
     

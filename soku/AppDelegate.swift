@@ -20,25 +20,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         FirebaseApp.configure()
-        
 
-        Auth.auth().signInAnonymously { (result, error) in
-        
-
-            if error != nil {
-                print(error!.localizedDescription)
-                return
-            }
-
-            guard let user = result?.user else {return}
-            let isAnonimous = user.isAnonymous
-
-            let uid = user.uid
-
-            UserDefaults.standard.setValue(uid, forKey: kCURRENTUID)
-            UserDefaults.standard.synchronize()
-            return
-        }
+//        Auth.auth().signInAnonymously { (result, error) in
+//
+//
+//            if error != nil {
+//                print(error!.localizedDescription)
+//                return
+//            }
+//
+//            guard let user = result?.user else {return}
+//            let isAnonimous = user.isAnonymous
+//
+//            let uid = user.uid
+//
+//            UserDefaults.standard.setValue(uid, forKey: kCURRENTUID)
+//            UserDefaults.standard.synchronize()
+//            return
+//        }
         return true
     }
 

@@ -14,6 +14,8 @@ class HomeViewController : UIViewController {
     
     //MARK: - parts
     
+    
+    
     private let uidLabel : UILabel = {
         let label = UILabel()
         label.text = "UID"
@@ -22,10 +24,21 @@ class HomeViewController : UIViewController {
         return label
     }()
     
+    let actionButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.tintColor = .white
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 45, weight: .regular, scale: .large)
+        button.setImage(UIImage(systemName: "plus.circle", withConfiguration: largeConfig )?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.addTarget(self, action: #selector(handleTappedAddNews), for: .touchUpInside)
+        
+        
+        return button
+    }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(currentUID())
+        
         confifureUI()
     }
     
@@ -34,11 +47,25 @@ class HomeViewController : UIViewController {
     private func confifureUI() {
         
         view.backgroundColor = .black
+        
+        view.addSubview(actionButton)
+        actionButton.anchor( top: view.safeAreaLayoutGuide.topAnchor, right: view.rightAnchor, paddingTop : 16, paddingRight: 16, width: 48, height: 48)
 
         view.addSubview(uidLabel)
         uidLabel.text = "\(uid!) さん"
-        uidLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,right: view.rightAnchor,paddingTop: 16,paddingRight: 16)
+        uidLabel.centerX(inView: self.view)
+        uidLabel.anchor(bottom : view.safeAreaLayoutGuide.bottomAnchor,paddingBottom: 24)
         
     }
-
+    
+    //MARK: - Actions
+    
+    @objc func handleTappedAddNews() {
+        
+        let addVC = AddNewsViewController()
+        let nav = UINavigationController(rootViewController: addVC)
+        nav.modalPresentationStyle = .fullScreen
+        
+        present(nav, animated: true, completion: nil)
+    }
 }
