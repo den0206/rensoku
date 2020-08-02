@@ -40,6 +40,7 @@ class HomeViewController : UIViewController {
         super.viewDidLoad()
         
         confifureUI()
+        
     }
     
     //MARK: - UI
@@ -62,7 +63,7 @@ class HomeViewController : UIViewController {
     
     @objc func handleTappedAddNews() {
         
-        let addVC = AddNewsViewController()
+        let addVC = exAddNewsViewController()
         let nav = UINavigationController(rootViewController: addVC)
         nav.modalPresentationStyle = .fullScreen
         

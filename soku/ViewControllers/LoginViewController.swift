@@ -33,6 +33,13 @@ class LoginViewController : UIViewController{
         tf.heightAnchor.constraint(equalToConstant: 50).isActive = true
         tf.layer.cornerRadius = 13 / 2
         tf.addTarget(self, action: #selector(editingChange(_ :)), for: .editingChanged)
+        
+        let paddingView = UIView()
+        paddingView.setDimensions(height: 50, width: 20)
+        
+        tf.leftView = paddingView
+        tf.leftViewMode = .always
+        
         tf.clipsToBounds = true
         
         return tf

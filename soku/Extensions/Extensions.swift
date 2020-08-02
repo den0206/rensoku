@@ -244,7 +244,71 @@ extension UIViewController {
         
         present(alert, animated: true, completion: nil)
     }
+    
+    func inputContainerView(withImage : UIImage, textField : UITextField? = nil) -> UIView {
+        
+        let view = UIView()
+        
+        let iv = UIImageView()
+        iv.image = withImage
+        iv.tintColor = .lightGray
+        iv.alpha = 0.87
+        view.addSubview(iv)
+        
+        if let textField = textField {
+            iv.centerY(inView: view)
+            iv.anchor(left : view.leftAnchor, paddingLeft: 8, width: 24, height: 24)
+            
+            view.addSubview(textField)
+            textField.centerY(inView: view)
+            textField.anchor(left : iv.rightAnchor, bottom:  view.bottomAnchor, right: view.rightAnchor, paddingLeft: 8, paddingBottom: 8)
+        }
+        
+        let separatorVIew = UIView()
+        separatorVIew.backgroundColor = .lightGray
+        view.addSubview(separatorVIew)
+        separatorVIew.anchor(left : view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingLeft: 8, height: 0.75)
+        
+        return view
+    }
+    
+    func createTextField(withPlaceholder : String, isSecureType : Bool) -> UITextField {
+        let tf = UITextField()
+        tf.borderStyle = .none
+        tf.font = UIFont.systemFont(ofSize: 16)
+        tf.textColor = .white
+        tf.keyboardAppearance = .light
+        tf.isSecureTextEntry = isSecureType
+        tf.attributedPlaceholder = NSAttributedString(string: withPlaceholder, attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray])
+        tf.autocapitalizationType = .none
+        
+        return tf
+    }
+    
+    func createSexSegmentControl(selectedIndex : Int = 0, selectedColor : UIColor) -> UISegmentedControl {
+        let sc = UISegmentedControl(items: ["Man", "Woman"])
+        // 選択時の背景色
+        if #available(iOS 13.0, *) {
+            sc.selectedSegmentTintColor = selectedColor
+        }
+        else {
+            sc.tintColor = selectedColor
+        }
+        sc.backgroundColor = .black
+        // 文字色
+        sc.setTitleTextAttributes( [NSAttributedString.Key.foregroundColor:UIColor.white], for: .normal)
+        // 枠線
+        sc.layer.borderWidth = 2
+
+        sc.layer.borderColor = UIColor.white.cgColor
+        sc.selectedSegmentIndex = selectedIndex
+        return sc
+    }
 }
+
+
+
+
 
 
 func currentUID() -> String {
