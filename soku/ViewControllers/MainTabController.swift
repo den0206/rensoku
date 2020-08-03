@@ -27,7 +27,7 @@ class MainTabController : UITabBarController {
         homeVC.tabBarItem.image = UIImage(systemName: "house.fill")
         homeVC.tabBarItem.title = "Home"
         
-        let detailVC = NewsDetailViewController()
+        let detailVC = CoupleDetailViewController()
         let nav1 = createNavController(image: UIImage(systemName: "suit.heart.fill"), title: "Detail", rootVC: detailVC)
         nav1.navigationBar.isHidden = true
         

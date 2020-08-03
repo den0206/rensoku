@@ -9,7 +9,7 @@
 import UIKit
 import Charts
 
-class NewsDetailViewController : UIViewController {
+class CoupleDetailViewController : UIViewController {
     
     var headerView = DetailHeaderView()
     let chartView = ChartsView()
@@ -58,7 +58,7 @@ class NewsDetailViewController : UIViewController {
     }
 }
 
-extension NewsDetailViewController : UITableViewDelegate,UITableViewDataSource {
+extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20

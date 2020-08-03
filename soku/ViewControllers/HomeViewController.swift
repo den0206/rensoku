@@ -63,7 +63,7 @@ class HomeViewController : UIViewController {
     
     @objc func handleTappedAddNews() {
         
-        let addVC = exAddNewsViewController()
+        let addVC = AddCoupleViewController()
         let nav = UINavigationController(rootViewController: addVC)
         nav.modalPresentationStyle = .fullScreen
         
