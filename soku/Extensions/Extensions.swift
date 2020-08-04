@@ -55,64 +55,64 @@ extension UIView {
                    width: CGFloat? = nil,
                    height: CGFloat? = nil) {
            
-           translatesAutoresizingMaskIntoConstraints = false
-           
-           if let top = top {
-               topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
-           }
-           
-           if let left = left {
-               leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
-           }
-           
-           if let bottom = bottom {
-               bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
-           }
-           
-           if let right = right {
-               rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
-           }
-           
-           if let width = width {
-               widthAnchor.constraint(equalToConstant: width).isActive = true
-           }
-           
-           if let height = height {
-               heightAnchor.constraint(equalToConstant: height).isActive = true
-           }
-       }
-       
-       func centerX(inView view : UIView, topAnchor : NSLayoutYAxisAnchor? = nil, paddingTop : CGFloat? = 0) {
-            translatesAutoresizingMaskIntoConstraints = false
-            centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            
-            if let topAnchor = topAnchor {
-                self.topAnchor.constraint(equalTo: topAnchor, constant: paddingTop!).isActive = true
-            }
+        translatesAutoresizingMaskIntoConstraints = false
+        
+        if let top = top {
+            topAnchor.constraint(equalTo: top, constant: paddingTop).isActive = true
         }
-       
-       func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil,
-                    paddingLeft: CGFloat = 0, constant: CGFloat = 0) {
-           
-           translatesAutoresizingMaskIntoConstraints = false
-           centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
-           
-           if let left = leftAnchor {
-               anchor(left: left, paddingLeft: paddingLeft)
-           }
-       }
+        
+        if let left = left {
+            leftAnchor.constraint(equalTo: left, constant: paddingLeft).isActive = true
+        }
+        
+        if let bottom = bottom {
+            bottomAnchor.constraint(equalTo: bottom, constant: -paddingBottom).isActive = true
+        }
+        
+        if let right = right {
+            rightAnchor.constraint(equalTo: right, constant: -paddingRight).isActive = true
+        }
+        
+        if let width = width {
+            widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        
+        if let height = height {
+            heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
+    }
+    
+    func centerX(inView view : UIView, topAnchor : NSLayoutYAxisAnchor? = nil, paddingTop : CGFloat? = 0) {
+        translatesAutoresizingMaskIntoConstraints = false
+        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        if let topAnchor = topAnchor {
+            self.topAnchor.constraint(equalTo: topAnchor, constant: paddingTop!).isActive = true
+        }
+    }
+    
+    func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil,
+                 paddingLeft: CGFloat = 0, constant: CGFloat = 0) {
+        
+        translatesAutoresizingMaskIntoConstraints = false
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: constant).isActive = true
+        
+        if let left = leftAnchor {
+            anchor(left: left, paddingLeft: paddingLeft)
+        }
+    }
     
     func center(inView view : UIView, yConstant : CGFloat? = 0) {
-           translatesAutoresizingMaskIntoConstraints = false
-           centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-           centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: yConstant!).isActive = true
-       }
-       
-       func setDimensions(height: CGFloat, width: CGFloat) {
-           translatesAutoresizingMaskIntoConstraints = false
-           heightAnchor.constraint(equalToConstant: height).isActive = true
-           widthAnchor.constraint(equalToConstant: width).isActive = true
-       }
+        translatesAutoresizingMaskIntoConstraints = false
+        centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: yConstant!).isActive = true
+    }
+    
+    func setDimensions(height: CGFloat, width: CGFloat) {
+        translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalToConstant: height).isActive = true
+        widthAnchor.constraint(equalToConstant: width).isActive = true
+    }
     
     @discardableResult
     open func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, trailing: NSLayoutXAxisAnchor?, padding: UIEdgeInsets = .zero, size: CGSize = .zero) -> AnchoredConstraints {
@@ -252,6 +252,59 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    func showPresentLoadindView(_ present : Bool, message : String? = nil) {
+        
+        if present {
+            
+            let whiteView = UIView()
+            whiteView.frame = self.view.bounds
+            whiteView.backgroundColor = .white
+            whiteView.alpha = 0
+            whiteView.tag = 1
+            
+            let indicator = UIActivityIndicatorView()
+            indicator.color = .white
+            indicator.style = .large
+            indicator.center = whiteView.center
+            
+            let label = UILabel()
+            label.text = message
+            label.font = UIFont.systemFont(ofSize: 16)
+            label.textColor = .white
+            label.textAlignment = .center
+            label.alpha = 0.7
+            
+            self.view.addSubview(whiteView)
+            whiteView.addSubview(indicator)
+            whiteView.addSubview(label)
+            
+            label.centerX(inView: view)
+            label.anchor(top : indicator.bottomAnchor,paddingTop: 23)
+            
+            indicator.startAnimating()
+            
+            UIView.animate(withDuration: 0.2) {
+                whiteView.alpha = 0.7
+            }
+            
+            
+        } else {
+            
+            // hide
+            view.subviews.forEach { (subview) in
+                
+                if subview.tag == 1 {
+                    UIView.animate(withDuration: 0.5, animations: {
+                        subview.alpha = 0
+                    }) { (_) in
+                        subview.removeFromSuperview()
+                    }
+                }
+            }
+            
+        }
     }
     
     func inputContainerView(withImage : UIImage, textField : UITextField? = nil) -> UIView {

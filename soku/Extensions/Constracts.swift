@@ -33,5 +33,7 @@ public let kNAME = "name"
 public let kPROFFESION = "proffesion"
 public let kSEX = "sex"
 
+public let kCOUPLEIDS = "coupleIds"
+
 
 

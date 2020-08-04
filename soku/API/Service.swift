@@ -34,20 +34,19 @@ class Service {
     
     static func saveCouple(couple : Couple, relationUrl : String?, completion :  @escaping(Error?) -> Void) {
         
+        [couple.person1,couple.person2].forEach { (person) in
+            
+            let personValue = [ kNAME : person.name,
+                                         kPROFFESION : person.proffesion,
+                                         kSEX :person.sex]
+            
+            firebeseReference(.Person).document(person.name).setData(personValue,merge: true)
+            
+            firebeseReference(.Person).document(person.name).updateData([kCOUPLEIDS : FieldValue.arrayUnion([couple.id])])
+            
+            
+        }
         
-        let person1Value = [ kNAME : couple.person1.name,
-                             kPROFFESION : couple.person1.proffesion,
-                             kSEX :couple.person1.sex]
-        
-        let person2Value = [ kNAME : couple.person2.name,
-                             kPROFFESION : couple.person2.proffesion,
-                             kSEX :couple.person2.sex]
-        
-        
-        
-        firebeseReference(.Person).document(couple.person1.name).setData(person1Value)
-        
-        firebeseReference(.Person).document(couple.person2.name).setData(person2Value)
         
         var value = [kCOUPLEID : couple.id,
                      kUID : couple.userID,
@@ -70,3 +69,21 @@ class Service {
         
     }
 }
+
+
+
+//        let person1Value = [ kNAME : couple.person1.name,
+//                             kPROFFESION : couple.person1.proffesion,
+//                             kSEX :couple.person1.sex]
+//
+//        let person2Value = [ kNAME : couple.person2.name,
+//                             kPROFFESION : couple.person2.proffesion,
+//                             kSEX :couple.person2.sex]
+//
+//
+//
+//        firebeseReference(.Person).document(couple.person1.name).setData(person1Value,merge: true)
+//
+//        firebeseReference(.Person).document(couple.person2.name).setData(person2Value)
+//
+//        firebeseReference(.Person).document(couple.person1.name).updateData([kCOUPLEIDS : FieldValue.arrayUnion([couple.id]) ])

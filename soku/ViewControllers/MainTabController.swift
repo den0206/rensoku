@@ -27,11 +27,16 @@ class MainTabController : UITabBarController {
         homeVC.tabBarItem.image = UIImage(systemName: "house.fill")
         homeVC.tabBarItem.title = "Home"
         
-        let detailVC = CoupleDetailViewController()
-        let nav1 = createNavController(image: UIImage(systemName: "suit.heart.fill"), title: "Detail", rootVC: detailVC)
-        nav1.navigationBar.isHidden = true
+        let couplesVC = CouplesViewController()
+        let nav1 = createNavController(image: UIImage(systemName: "person.2.fill"), title: "カップル", rootVC: couplesVC)
         
-        viewControllers = [homeVC, nav1]
+        
+        
+        let detailVC = CoupleDetailViewController()
+        let nav2 = createNavController(image: UIImage(systemName: "suit.heart.fill"), title: "Detail", rootVC: detailVC)
+        nav2.navigationBar.isHidden = true
+        
+        viewControllers = [homeVC, nav1,nav2]
         UITabBar.appearance().tintColor = .black
         tabBar.unselectedItemTintColor = .lightGray
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3A063A3C24D9A3C900AFB468 /* CouplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A063A3B24D9A3C900AFB468 /* CouplesViewController.swift */; };
 		3A34C18224D5507700B261C3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34C18124D5507700B261C3 /* Extensions.swift */; };
 		3A3E357D24D659A500661C51 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E357C24D659A500661C51 /* Service.swift */; };
 		3A3E357F24D65A3400661C51 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E357E24D65A3400661C51 /* LoginViewController.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A063A3B24D9A3C900AFB468 /* CouplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesViewController.swift; sourceTree = "<group>"; };
 		3A34C18124D5507700B261C3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3A3E357C24D659A500661C51 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3A3E357E24D65A3400661C51 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -127,8 +129,9 @@
 				3A3E357E24D65A3400661C51 /* LoginViewController.swift */,
 				3AB1D6B024D55A08002EF245 /* MainTabController.swift */,
 				3AB1D6AE24D5598F002EF245 /* HomeViewController.swift */,
-				3AB449F024D6FB5B0040EA63 /* AddCoupleViewController.swift */,
+				3A063A3B24D9A3C900AFB468 /* CouplesViewController.swift */,
 				3AD7C63824D528B700655A15 /* CoupleDetailViewController.swift */,
+				3AB449F024D6FB5B0040EA63 /* AddCoupleViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				3A6D6A7B24D59A5500DD546F /* Constracts.swift in Sources */,
 				3A34C18224D5507700B261C3 /* Extensions.swift in Sources */,
 				3A3E357F24D65A3400661C51 /* LoginViewController.swift in Sources */,
+				3A063A3C24D9A3C900AFB468 /* CouplesViewController.swift in Sources */,
 				3ADD565A24D8384E00E1C016 /* Couple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
