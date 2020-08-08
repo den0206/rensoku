@@ -7,12 +7,25 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class CouplesViewController : UITableViewController {
+    
+    //MARK: - Property
+    
+    var couples = [Couple]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var lastDocument : DocumentSnapshot?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTV()
+        
+        fetchCouples()
     }
     
     //MARK: - Parts
@@ -28,6 +41,28 @@ class CouplesViewController : UITableViewController {
         
         
     }
+    
+    //MARK: - API
+    
+    private func fetchCouples() {
+        
+        self.navigationController?.showPresentLoadindView(true)
+        
+        CoupleService.fetchCouples(firstLoad: true, limit: 5, lastDocument: nil) { (couples, error, lastDocument) in
+            
+            if error != nil {
+                self.navigationController?.showPresentLoadindView(false)
+                self.showErrorAlert(message: error!.localizedDescription)
+                return
+            }
+            
+            self.lastDocument = lastDocument
+            self.couples = couples
+            
+            self.navigationController?.showPresentLoadindView(false)
+            print(self.lastDocument)
+        }
+    }
 }
 
 
@@ -36,7 +71,7 @@ class CouplesViewController : UITableViewController {
 extension CouplesViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return couples.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

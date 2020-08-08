@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class Couple {
     
     let id : String
     let userID : String
-    let date : Date
+    var date : Date
     let person1 : Person
     let person2 : Person
     
@@ -33,6 +34,26 @@ class Couple {
             self.relationUrl = URL(string: urlString!)
         }
          
+    }
+    
+    init(json : [String : Any], persons : [Person]) {
+
+        self.id = json[kCOUPLEID] as? String ?? ""
+        self.userID = json[kUID] as? String ?? ""
+        
+        self.person1 = persons[0]
+        self.person2 = persons[1]
+        
+        if json[kRELATIONURL] != nil {
+            self.relationUrl = URL(string: json[kRELATIONURL] as! String )
+        }
+         
+
+        if let date = json[kDATE] as? Timestamp {
+            self.date = date.dateValue()
+        } else {
+            self.date = json[kDATE] as? Date ?? Date()
+        }
     }
     
 }

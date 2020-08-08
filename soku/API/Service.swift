@@ -68,22 +68,96 @@ class Service {
         firebeseReference(.Couple).document(couple.id).setData(value, completion: completion)
         
     }
+    
+   
+}
+
+class CoupleService {
+    
+    static func fetchCouples(firstLoad : Bool, limit : Int, lastDocument : DocumentSnapshot?, completion :  @escaping(_ couples : [Couple], _ error : Error?, _ lastDocument : DocumentSnapshot?) -> Void ) {
+        
+        var query : Query!
+        var couples = [Couple]()
+        
+        if firstLoad {
+            query = firebeseReference(.Couple).order(by: kDATE, descending: false).limit(to: limit)
+        } else {
+            
+            guard let lastDocument = lastDocument else {return}
+            query = firebeseReference(.Couple).order(by: kDATE, descending: false).limit(to: limit).start(afterDocument: lastDocument)
+        }
+        
+        guard query != nil  else { completion(couples, nil, nil); return }
+        
+        query.getDocuments { (snapshot, error) in
+            
+            if error != nil {
+                completion(couples, error, nil)
+                return
+            }
+            
+            guard let snapshot = snapshot else {return}
+            
+            if !snapshot.isEmpty {
+                
+                let lastDocument = snapshot.documents.last
+                
+                snapshot.documents.forEach { (doc) in
+                    
+                    let data = doc.data()
+                    let person1Name = doc[kPERSON1NAME] as! String
+                    let person2Name = doc[kPERSON2NAME] as! String
+                    
+                    fetchPersons(names: [person1Name,person2Name]) { (persons) in
+                        
+                        let couple = Couple(json: data, persons: persons)
+                        
+                        couples.append(couple)
+                        
+                        if couples.count == snapshot.documents.count {
+                            completion(couples,nil, lastDocument)
+                        }
+                        
+                    }
+                    
+                    
+                    
+                }
+                
+                
+            } else {
+                completion(couples, nil, nil)
+            }
+        }
+        
+    }
+    
+    static func fetchPersons(names : [String], completion :  @escaping([Person]) -> Void) {
+        
+        var persons = [Person]()
+        
+        for (index , name) in names.enumerated() {
+            
+            firebeseReference(.Person).document(name).getDocument { (snapshot, error) in
+                
+                guard let snapshot = snapshot else {return}
+                
+                if snapshot.exists {
+                    let dic = snapshot.data()!
+                    let person = Person(json: dic)
+                
+                    persons.append(person)
+                    
+                    if persons.count == names.count {
+                        completion(persons)
+                    }
+                }
+            }
+        }
+        
+        
+    }
+    
 }
 
 
-
-//        let person1Value = [ kNAME : couple.person1.name,
-//                             kPROFFESION : couple.person1.proffesion,
-//                             kSEX :couple.person1.sex]
-//
-//        let person2Value = [ kNAME : couple.person2.name,
-//                             kPROFFESION : couple.person2.proffesion,
-//                             kSEX :couple.person2.sex]
-//
-//
-//
-//        firebeseReference(.Person).document(couple.person1.name).setData(person1Value,merge: true)
-//
-//        firebeseReference(.Person).document(couple.person2.name).setData(person2Value)
-//
-//        firebeseReference(.Person).document(couple.person1.name).updateData([kCOUPLEIDS : FieldValue.arrayUnion([couple.id]) ])
