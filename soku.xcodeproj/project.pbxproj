@@ -20,6 +20,7 @@
 		3AB1D6B424D55DEC002EF245 /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB1D6B324D55DEC002EF245 /* ChartsView.swift */; };
 		3AB449F124D6FB5B0040EA63 /* AddCoupleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AB449F024D6FB5B0040EA63 /* AddCoupleViewController.swift */; };
 		3ABDE6DD24D5663F0035DD48 /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ABDE6DC24D5663E0035DD48 /* DetailHeaderView.swift */; };
+		3ACC6B7724DE471D0079CED3 /* CouplesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ACC6B7624DE471D0079CED3 /* CouplesCell.swift */; };
 		3AD7C62524D5286300655A15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C62424D5286300655A15 /* AppDelegate.swift */; };
 		3AD7C62724D5286300655A15 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AD7C62624D5286300655A15 /* SceneDelegate.swift */; };
 		3AD7C62E24D5286900655A15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3AD7C62D24D5286900655A15 /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 		3AB1D6B324D55DEC002EF245 /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 		3AB449F024D6FB5B0040EA63 /* AddCoupleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCoupleViewController.swift; sourceTree = "<group>"; };
 		3ABDE6DC24D5663E0035DD48 /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
+		3ACC6B7624DE471D0079CED3 /* CouplesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesCell.swift; sourceTree = "<group>"; };
 		3AD7C62124D5286300655A15 /* soku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AD7C62424D5286300655A15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3AD7C62624D5286300655A15 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				3AB097E724D68BD50096BA9C /* AddNewsCell.swift */,
+				3ACC6B7624DE471D0079CED3 /* CouplesCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -319,6 +322,7 @@
 				3AD7C63924D528B700655A15 /* CoupleDetailViewController.swift in Sources */,
 				3A3E357D24D659A500661C51 /* Service.swift in Sources */,
 				3AB449F124D6FB5B0040EA63 /* AddCoupleViewController.swift in Sources */,
+				3ACC6B7724DE471D0079CED3 /* CouplesCell.swift in Sources */,
 				3AB097E224D686F50096BA9C /* AddNewsViewModel.swift in Sources */,
 				3A6D6A7B24D59A5500DD546F /* Constracts.swift in Sources */,
 				3A34C18224D5507700B261C3 /* Extensions.swift in Sources */,
