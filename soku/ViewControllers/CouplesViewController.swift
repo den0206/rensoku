@@ -60,7 +60,6 @@ class CouplesViewController : UITableViewController {
             self.couples = couples
             
             self.navigationController?.showPresentLoadindView(false)
-            print(self.lastDocument)
         }
     }
 }
@@ -76,6 +75,8 @@ extension CouplesViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CouplesCell.identifier, for: indexPath) as! CouplesCell
+        
+        cell.couple = couples[indexPath.row]
         
         return cell
         

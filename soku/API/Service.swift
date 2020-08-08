@@ -47,16 +47,22 @@ class Service {
             
         }
         
-        
         var value = [kCOUPLEID : couple.id,
                      kUID : couple.userID,
                      kDATE : Timestamp(date: couple.date),
                      kPERSON1NAME : couple.person1.name,
-                     kPERSON1PROFFESION : couple.person1.proffesion,
-                     kPERSON1SEX :couple.person1.sex,
-                     kPERSON2NAME : couple.person2.name,
-                     kPERSON2PROFFESION : couple.person2.proffesion,
-                     kPERSON2SEX :couple.person2.sex ] as [String : Any]
+                     kPERSON2NAME : couple.person2.name] as [String : Any]
+        
+        
+//        var value = [kCOUPLEID : couple.id,
+//                     kUID : couple.userID,
+//                     kDATE : Timestamp(date: couple.date),
+//                     kPERSON1NAME : couple.person1.name,
+//                     kPERSON1PROFFESION : couple.person1.proffesion,
+//                     kPERSON1SEX :couple.person1.sex,
+//                     kPERSON2NAME : couple.person2.name,
+//                     kPERSON2PROFFESION : couple.person2.proffesion,
+//                     kPERSON2SEX :couple.person2.sex ] as [String : Any]
         
         
         if relationUrl != nil {
@@ -108,9 +114,20 @@ class CoupleService {
                     let person1Name = doc[kPERSON1NAME] as! String
                     let person2Name = doc[kPERSON2NAME] as! String
                     
+                    ///上に"Man"
                     fetchPersons(names: [person1Name,person2Name]) { (persons) in
+                        let sortd = persons.sorted { (lperson, rpeson) -> Bool in
+                            
+                            if lperson.sex == "Man" {
+                                return true
+                            }
+                            
+                            return false
+                        }
                         
-                        let couple = Couple(json: data, persons: persons)
+                        print(sortd)
+                        
+                        let couple = Couple(json: data, persons: sortd)
                         
                         couples.append(couple)
                         
@@ -136,18 +153,21 @@ class CoupleService {
         
         var persons = [Person]()
         
+        
         for (index , name) in names.enumerated() {
-            
+
             firebeseReference(.Person).document(name).getDocument { (snapshot, error) in
-                
+
                 guard let snapshot = snapshot else {return}
-                
+
                 if snapshot.exists {
                     let dic = snapshot.data()!
                     let person = Person(json: dic)
-                
-                    persons.append(person)
                     
+                    
+
+                    persons.append(person)
+
                     if persons.count == names.count {
                         completion(persons)
                     }
