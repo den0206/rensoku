@@ -10,27 +10,18 @@ import UIKit
 
 class DetailHeaderView : UIView {
     
+    let couple : Couple
+    
     //MARK: - Parts
     
-    private let manNameLabel : UILabel = {
+    private lazy var manNameLabel : UILabel = {
         let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textAlignment = .center
-        label.text = "男の名前"
+        label.attributedText = createAttribute(person: couple.person1)
         return label
+        
+        
     }()
-    
-    private let subtitleManNameLabel : UILabel = {
-        let label = UILabel()
-        label.textColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.textAlignment = .center
-        label.text = "サブタイトル"
-        return label
-    }()
-    
-    
     
     private let heartImage : UIImageView = {
         let iv = UIImageView()
@@ -43,32 +34,67 @@ class DetailHeaderView : UIView {
         return iv
     }()
     
-    private let womanNameLabel : UILabel = {
+    private lazy var womanNameLabel : UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 24)
-        
-        label.textColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
         label.textAlignment = .center
-        
-        label.text = "女の名前"
+
+        label.attributedText = createAttribute(person: couple.person2)
         return label
     }()
     
-    private let subtitleWomanNameLabel : UILabel = {
-          let label = UILabel()
-           label.textColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
-          label.font = UIFont.systemFont(ofSize: 14)
-          label.textAlignment = .center
-          label.text = "サブタイトル"
-          return label
-      }()
+    let LikeButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("お気に入り", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 35 / 2
+        button.backgroundColor = .systemPink
+//        button.layer.borderWidth = 2
+//        button.layer.borderColor = UIColor.white.cgColor
+        return button
+    }()
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    let unLikeButton : UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("ショック", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.clipsToBounds = true
+        button.layer.cornerRadius = 35 / 2
+        button.backgroundColor = .systemBlue
+//        button.layer.borderWidth = 2
+//        button.layer.borderColor = UIColor.white.cgColor
         
-        configureUI()
+        return button
+    }()
+
+    
+    init(couple : Couple) {
+        self.couple = couple
+        super.init(frame: .zero)
+        
+        print(couple)
+        backgroundColor = .clear
+        
+        let buttonStack = UIStackView(arrangedSubviews: [unLikeButton,LikeButton])
+        buttonStack.axis = .horizontal
+        buttonStack.spacing = 36
+        buttonStack.distribution = .fillEqually
+       
+        let stack = UIStackView(arrangedSubviews: [manNameLabel, heartImage,womanNameLabel, buttonStack])
+        
+        stack.axis = .vertical
+        stack.spacing = 12
+        stack.distribution = .fillProportionally
+        
+        addSubview(stack)
+        buttonStack.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        buttonStack.anchor(left : leftAnchor,right: rightAnchor,paddingLeft: 24,paddingRight: 24)
+               
+        stack.fillSuperview()
+        
     }
+    
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -76,27 +102,5 @@ class DetailHeaderView : UIView {
     
     //MARK: - UI
     
-    private func configureUI() {
-        backgroundColor = .clear
-        
-        let stack = UIStackView(arrangedSubviews: [manNameLabel, heartImage,womanNameLabel])
-        
-        stack.axis = .vertical
-        stack.spacing = 12
-        stack.distribution = .fillEqually
-        
-        addSubview(stack)
-        stack.fillSuperview()
-        
-        
-//        stack.addSubview(subtitleManNameLabel)
-//        subtitleManNameLabel.centerX(inView: manNameLabel)
-//        subtitleManNameLabel.anchor(bottom : stack.arrangedSubviews[0].topAnchor, paddingBottom: 8)
-//
-//        stack.addSubview(subtitleWomanNameLabel)
-//              subtitleWomanNameLabel.centerX(inView: womanNameLabel)
-//              subtitleWomanNameLabel.anchor(bottom : stack.arrangedSubviews[2].topAnchor, paddingBottom: 8)
-        
 
-    }
 }

@@ -11,16 +11,25 @@ import Charts
 
 class CoupleDetailViewController : UIViewController {
     
-    var headerView = DetailHeaderView()
+    lazy var headerView = DetailHeaderView(couple: couple)
     let chartView = ChartsView()
     
-   
+    let couple : Couple
     
     private var tableView = UITableView()
     
+    init(couple : Couple) {
+        self.couple = couple
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         view.backgroundColor = .black
         configureUI()
         configureTV()
@@ -31,18 +40,16 @@ class CoupleDetailViewController : UIViewController {
     private func configureUI() {
         
         view.addSubview(headerView)
-        headerView.anchor(top : view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor,right: view.rightAnchor,width: view.frame.width,height: 150)
+        headerView.anchor(top : view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor, right: view.rightAnchor,width: view.frame.width,height: 200)
         
         
-    
-//        view.addSubview(chartView)
-//        chartView.anchor(top : headerView.bottomAnchor,left: view.leftAnchor, right: view.rightAnchor,width: view.frame.width,height: 200)
+
 
     }
     
     private func configureTV() {
         
-        tableView.frame = CGRect(x: 0, y: 200, width: view.frame.width, height: view.frame.height)
+        tableView.frame = CGRect(x: 0, y: 250, width: view.frame.width, height: view.frame.height)
         tableView.backgroundColor = .white
         tableView.rowHeight = 80
         tableView.delegate = self

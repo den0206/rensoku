@@ -101,21 +101,6 @@ class CouplesCell : UITableViewCell {
         person1Label.attributedText = createAttribute(person: person1)
         person2Label.attributedText = createAttribute(person: person2)
     }
-    
-    //MARK: - Helpers
-    
-    private func createAttribute(person : Person) -> NSAttributedString {
-        
-        let personalColor : UIColor = person.sex == "Man" ? UIColor.systemBlue :UIColor.systemPink
-        
-        let personName = NSMutableAttributedString(string: person.name, attributes: [NSAttributedString.Key.foregroundColor : personalColor, NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 24) ])
-        
-        if person.proffesion != "" {
-            let subtitle = NSAttributedString(string: " \(person.proffesion)", attributes:  [NSAttributedString.Key.foregroundColor : personalColor])
-            
-            personName.append(subtitle)
-        }
-        
-        return personName
-    }
+
+
 }
