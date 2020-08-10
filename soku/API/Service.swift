@@ -178,6 +178,26 @@ class CoupleService {
         
     }
     
+    //MARK: - Vote
+    
+    static func uploadVote(coupleId : String, like : Bool, completion :  @escaping(Error?) -> Void) {
+        
+        guard currentUID() != "" else {return}
+        
+        let values = [kCOUPLEID : coupleId,
+                      kUID : currentUID(),
+                      kLIKEDVOTE : like
+            ] as [String : Any]
+        
+        firebeseReference(.Couple).document(coupleId).collection(kVOTE).document(currentUID()).setData(values, merge: false)
+        
+        if like {
+            firebeseReference(.Couple).document(coupleId).updateData([kGOODCOUNT : FieldValue.increment(Int64(1))])
+        } else {
+            firebeseReference(.Couple).document(coupleId).updateData([kBADCOUNT : FieldValue.increment(Int64(1))])
+        }
+    }
+    
 }
 
 

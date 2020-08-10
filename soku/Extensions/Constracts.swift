@@ -19,6 +19,9 @@ public let kCOMMENTCOUNT = "commentCounts"
 public let kGOODCOUNT = "goodCount"
 public let kBADCOUNT = "badCount"
 public let kRELATIONURL = "relationURL"
+public let kVOTE = "Vote"
+public let kLIKEDVOTE = "likedVote"
+
 
 public let kPERSON1NAME = "person_1Name"
 public let kPERSON1PROFFESION = "person_1Proffesion"

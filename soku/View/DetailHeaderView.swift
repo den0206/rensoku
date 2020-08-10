@@ -8,9 +8,17 @@
 
 import UIKit
 
+protocol DetailHeaderViewDelegate : class {
+    func handleLike(header : DetailHeaderView, couple : Couple)
+    func handleUnlike(header : DetailHeaderView, couple : Couple)
+
+}
+
 class DetailHeaderView : UIView {
     
     let couple : Couple
+    
+    weak var delegate : DetailHeaderViewDelegate?
     
     //MARK: - Parts
     
@@ -44,13 +52,14 @@ class DetailHeaderView : UIView {
     
     let LikeButton : UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("お気に入り", for: .normal)
+        button.setTitle("お似合い", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.clipsToBounds = true
         button.layer.cornerRadius = 35 / 2
         button.backgroundColor = .systemPink
-//        button.layer.borderWidth = 2
-//        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+        button.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         return button
     }()
     
@@ -61,8 +70,9 @@ class DetailHeaderView : UIView {
         button.clipsToBounds = true
         button.layer.cornerRadius = 35 / 2
         button.backgroundColor = .systemBlue
-//        button.layer.borderWidth = 2
-//        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+        button.addTarget(self, action: #selector(handleUnlike), for: .touchUpInside)
         
         return button
     }()
@@ -100,7 +110,16 @@ class DetailHeaderView : UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - UI
+    //MARK: - Actions
+    
+    @objc func handleLike() {
+        
+        delegate?.handleLike(header: self, couple: couple)
+    }
+    
+    @objc func handleUnlike() {
+        delegate?.handleUnlike(header: self, couple: couple)
+    }
     
 
 }

@@ -10,14 +10,36 @@ import UIKit
 import Charts
 
 class ChartsView : UIView {
+
     
     //MARK: - Propert
+    
+    let couple : Couple
     
     var sumCount : Double {
         return sadCount + goodCount
     }
-    var sadCount : Double = 52
-    var goodCount : Double = 4
+    var sadCount : Double {
+        
+        get {
+            return Double(couple.badCount)
+        }
+        
+        set {
+            
+        }
+    }
+    var goodCount : Double {
+        
+        get {
+            return Double(couple.goodCount)
+
+        }
+        
+        set {
+            
+        }
+    }
     
     //MARK: - Parts
     
@@ -56,8 +78,9 @@ class ChartsView : UIView {
         return iv
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(couple : Couple) {
+        self.couple = couple
+        super.init(frame: .zero)
         
         self.backgroundColor = .black
         addSubview(pieChart)
@@ -65,6 +88,7 @@ class ChartsView : UIView {
         
         configureChartView()
     }
+    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -118,4 +142,35 @@ class ChartsView : UIView {
             
             
         }
+}
+
+extension ChartsView : DetailHeaderViewDelegate {
+    func handleLike(header: DetailHeaderView, couple: Couple) {
+        
+        
+        CoupleService.uploadVote(coupleId: couple.id, like: true) { (error) in
+            
+            header.LikeButton.isEnabled = false
+            header.unLikeButton.isEnabled = false
+            
+            self.goodCount += 1
+            
+            self.configureChartView()
+
+        }
+    }
+    
+    func handleUnlike(header: DetailHeaderView, couple: Couple) {
+        CoupleService.uploadVote(coupleId: couple.id, like: false) { (error) in
+            
+            header.LikeButton.isEnabled = false
+            header.unLikeButton.isEnabled = false
+
+        }
+
+    }
+    
+    
+    
+    
 }

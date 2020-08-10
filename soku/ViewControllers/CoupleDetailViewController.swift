@@ -12,7 +12,7 @@ import Charts
 class CoupleDetailViewController : UIViewController {
     
     lazy var headerView = DetailHeaderView(couple: couple)
-    let chartView = ChartsView()
+    lazy var chartView = ChartsView(couple: couple)
     
     let couple : Couple
     
@@ -42,6 +42,7 @@ class CoupleDetailViewController : UIViewController {
         view.addSubview(headerView)
         headerView.anchor(top : view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor, right: view.rightAnchor,width: view.frame.width,height: 200)
         
+        headerView.delegate = chartView
         
 
 
@@ -50,7 +51,7 @@ class CoupleDetailViewController : UIViewController {
     private func configureTV() {
         
         tableView.frame = CGRect(x: 0, y: 250, width: view.frame.width, height: view.frame.height)
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = .black
         tableView.rowHeight = 80
         tableView.delegate = self
         tableView.dataSource = self
