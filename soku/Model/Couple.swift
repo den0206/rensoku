@@ -19,8 +19,8 @@ class Couple {
     
     var relationUrl : URL?
     
-    var goodCount = 0
-    var badCount = 0
+    var goodCount :Int = 0
+    var badCount : Int = 0
     
     init(coupleId : String, userId : String,person_1 : Person,person_2 : Person, urlString : String?, date : Date) {
         self.id = coupleId
@@ -44,9 +44,14 @@ class Couple {
         self.person1 = persons[0]
         self.person2 = persons[1]
         
+        self.goodCount = json[kGOODCOUNT] as? Int ?? 0
+        self.badCount = json[kBADCOUNT] as? Int ?? 0
+        
         if json[kRELATIONURL] != nil {
             self.relationUrl = URL(string: json[kRELATIONURL] as! String )
         }
+        
+        
          
 
         if let date = json[kDATE] as? Timestamp {

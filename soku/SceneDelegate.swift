@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = CoupleDetailViewController(couple: Couple(coupleId: "aa", userId: "aaa", person_1: Person(name: "AAA", proffesion: "", sex: "Man"), person_2: Person(name: "BBB", proffesion: "", sex: "Woman"), urlString: nil, date: Date()))
-//        window?.rootViewController = MainTabController()
+//        window?.rootViewController = CoupleDetailViewController(couple: Couple(coupleId: "aa", userId: "aaa", person_1: Person(name: "AAA", proffesion: "", sex: "Man"), person_2: Person(name: "BBB", proffesion: "", sex: "Woman"), urlString: nil, date: Date()))
+        window?.rootViewController = MainTabController()
         window?.makeKeyAndVisible()
     }
 

@@ -50,7 +50,7 @@ class CoupleDetailViewController : UIViewController {
     
     private func configureTV() {
         
-        tableView.frame = CGRect(x: 0, y: 250, width: view.frame.width, height: view.frame.height)
+        tableView.frame = CGRect(x: 0, y: 270, width: view.frame.width, height: view.frame.height)
         tableView.backgroundColor = .black
         tableView.rowHeight = 80
         tableView.delegate = self

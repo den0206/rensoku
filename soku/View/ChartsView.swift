@@ -19,26 +19,17 @@ class ChartsView : UIView {
     var sumCount : Double {
         return sadCount + goodCount
     }
+   
     var sadCount : Double {
         
-        get {
-            return Double(couple.badCount)
-        }
-        
-        set {
-            
-        }
+        return Double(couple.badCount)
     }
+    
     var goodCount : Double {
         
-        get {
-            return Double(couple.goodCount)
-
-        }
+        return Double(couple.goodCount)
         
-        set {
-            
-        }
+        
     }
     
     //MARK: - Parts
@@ -82,6 +73,8 @@ class ChartsView : UIView {
         self.couple = couple
         super.init(frame: .zero)
         
+        print(self.goodCount)
+        
         self.backgroundColor = .black
         addSubview(pieChart)
         pieChart.anchor(top: topAnchor,left: leftAnchor,bottom: bottomAnchor,right: rightAnchor, paddingTop: 16,paddingLeft: 16,paddingBottom: 16,paddingRight: 16)
@@ -110,8 +103,8 @@ class ChartsView : UIView {
                 dateEntries = [PieChartDataEntry(value:100 , label: "投稿がありません")]
             } else {
                 dateEntries = [
-                    PieChartDataEntry(value: sadCount, label: "ショック"),
-                    PieChartDataEntry(value: goodCount, label: "お似合い！")
+                    PieChartDataEntry(value: 52, label: "ショック"),
+                    PieChartDataEntry(value: 4, label: "お似合い！")
                 ]
             }
             
@@ -150,11 +143,16 @@ extension ChartsView : DetailHeaderViewDelegate {
         
         CoupleService.uploadVote(coupleId: couple.id, like: true) { (error) in
             
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            print("Call")
             header.LikeButton.isEnabled = false
             header.unLikeButton.isEnabled = false
             
-            self.goodCount += 1
-            
+            print(self.goodCount)
             self.configureChartView()
 
         }
@@ -162,6 +160,12 @@ extension ChartsView : DetailHeaderViewDelegate {
     
     func handleUnlike(header: DetailHeaderView, couple: Couple) {
         CoupleService.uploadVote(coupleId: couple.id, like: false) { (error) in
+            
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            
             
             header.LikeButton.isEnabled = false
             header.unLikeButton.isEnabled = false

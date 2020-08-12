@@ -189,7 +189,8 @@ class CoupleService {
                       kLIKEDVOTE : like
             ] as [String : Any]
         
-        firebeseReference(.Couple).document(coupleId).collection(kVOTE).document(currentUID()).setData(values, merge: false)
+        
+        firebeseReference(.Couple).document(coupleId).collection(kVOTE).document(currentUID()).setData(values, merge: false, completion: completion)
         
         if like {
             firebeseReference(.Couple).document(coupleId).updateData([kGOODCOUNT : FieldValue.increment(Int64(1))])
