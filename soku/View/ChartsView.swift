@@ -9,28 +9,24 @@
 import UIKit
 import Charts
 
-class ChartsView : UIView {
+protocol ChartsViewDelegate : class {
+    func showLoadingView()
+    func dismissLoadingView()
 
+}
+
+class ChartsView : UIView {
+    
+    weak var delegate : ChartsViewDelegate?
     
     //MARK: - Propert
     
     let couple : Couple
     
-    var sumCount : Double {
-        return sadCount + goodCount
-    }
-   
-    var sadCount : Double {
-        
-        return Double(couple.badCount)
-    }
+    lazy var goodCount = couple.goodCount
+    lazy var badCount = couple.badCount
     
-    var goodCount : Double {
-        
-        return Double(couple.goodCount)
-        
-        
-    }
+
     
     //MARK: - Parts
     
@@ -98,13 +94,13 @@ class ChartsView : UIView {
             
             var dateEntries : [PieChartDataEntry]
             
-            if sumCount == 0 {
+            if goodCount + badCount == 0 {
                 
                 dateEntries = [PieChartDataEntry(value:100 , label: "投稿がありません")]
             } else {
                 dateEntries = [
-                    PieChartDataEntry(value: 52, label: "ショック"),
-                    PieChartDataEntry(value: 4, label: "お似合い！")
+                    PieChartDataEntry(value: encodeDouble(count: badCount), label: "ショック"),
+                    PieChartDataEntry(value: encodeDouble(count: goodCount), label: "お似合い！")
                 ]
             }
             
@@ -135,11 +131,21 @@ class ChartsView : UIView {
             
             
         }
+    
+    //MARK: - helpers
+    
+    private func encodeDouble(count : Int) -> Double {
+        
+        let sumVoteCount = goodCount + badCount
+
+        return Double(count / sumVoteCount * 100)
+    }
 }
 
 extension ChartsView : DetailHeaderViewDelegate {
     func handleLike(header: DetailHeaderView, couple: Couple) {
         
+        delegate?.showLoadingView()
         
         CoupleService.uploadVote(coupleId: couple.id, like: true) { (error) in
             
@@ -149,14 +155,18 @@ extension ChartsView : DetailHeaderViewDelegate {
             }
             
             header.disableButton()
-
-            print(self.goodCount)
+            self.goodCount += 1
             self.configureChartView()
+            
+            self.delegate?.dismissLoadingView()
 
         }
     }
     
     func handleUnlike(header: DetailHeaderView, couple: Couple) {
+        
+        delegate?.showLoadingView()
+
         CoupleService.uploadVote(coupleId: couple.id, like: false) { (error) in
             
             if error != nil {
@@ -165,8 +175,11 @@ extension ChartsView : DetailHeaderViewDelegate {
             }
             
             header.disableButton()
-            
+            self.badCount -= 1
             self.configureChartView()
+            
+            self.delegate?.dismissLoadingView()
+
 
         }
 

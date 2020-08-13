@@ -49,12 +49,11 @@ class CoupleDetailViewController : UIViewController {
         headerView.anchor(top : view.safeAreaLayoutGuide.topAnchor,left: view.leftAnchor, right: view.rightAnchor,width: view.frame.width,height: 200)
         
         headerView.delegate = chartView
-        
-
-
     }
     
     private func configureTV() {
+        
+        chartView.delegate = self
         
         tableView.frame = CGRect(x: 0, y: 300, width: view.frame.width, height: view.frame.height)
         tableView.backgroundColor = .black
@@ -78,8 +77,7 @@ class CoupleDetailViewController : UIViewController {
             
             self.voted = voted
             self.headerView.voted = voted
-            
-            
+
         }
     }
 }
@@ -93,9 +91,23 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
+        cell.backgroundColor = .black
         return cell
     }
     
     
 }
+
+extension CoupleDetailViewController : ChartsViewDelegate {
+    func showLoadingView() {
+        self.navigationController?.showPresentLoadindView(true)
+    }
+    
+    func dismissLoadingView() {
+        self.navigationController?.showPresentLoadindView(false)
+
+    }
+    
+    
+}
+

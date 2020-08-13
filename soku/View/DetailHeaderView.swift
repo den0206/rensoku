@@ -99,14 +99,12 @@ class DetailHeaderView : UIView {
         
         backgroundColor = .clear
         
-
         buttonStack.axis = .horizontal
         buttonStack.spacing = 36
         buttonStack.distribution = .fillEqually
         buttonStack.isHidden = true
        
 
-        
         stack.axis = .vertical
         stack.spacing = 12
         stack.distribution = .fillProportionally
