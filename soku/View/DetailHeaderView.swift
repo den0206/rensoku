@@ -18,6 +18,16 @@ class DetailHeaderView : UIView {
     
     let couple : Couple
     
+    var voted = false {
+        didSet {
+            if voted {
+                disableButton()
+            } else {
+                buttonStack.isHidden = false
+            }
+        }
+    }
+    
     weak var delegate : DetailHeaderViewDelegate?
     
     //MARK: - Parts
@@ -76,21 +86,26 @@ class DetailHeaderView : UIView {
         
         return button
     }()
+    
+    lazy var buttonStack = UIStackView(arrangedSubviews: [unLikeButton,LikeButton])
+   
+    
+    lazy var stack = UIStackView(arrangedSubviews: [manNameLabel, heartImage,womanNameLabel, buttonStack])
 
     
     init(couple : Couple) {
         self.couple = couple
         super.init(frame: .zero)
         
-        print(couple)
         backgroundColor = .clear
         
-        let buttonStack = UIStackView(arrangedSubviews: [unLikeButton,LikeButton])
+
         buttonStack.axis = .horizontal
         buttonStack.spacing = 36
         buttonStack.distribution = .fillEqually
+        buttonStack.isHidden = true
        
-        let stack = UIStackView(arrangedSubviews: [manNameLabel, heartImage,womanNameLabel, buttonStack])
+
         
         stack.axis = .vertical
         stack.spacing = 12
@@ -108,6 +123,17 @@ class DetailHeaderView : UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - UI
+    
+    func disableButton() {
+        buttonStack.isHidden = true
+//
+//        [LikeButton,unLikeButton].forEach { (button) in
+//            button.alpha = 0.4
+//            button.isEnabled = false
+//        }
     }
     
     //MARK: - Actions

@@ -199,6 +199,19 @@ class CoupleService {
         }
     }
     
+    static func checkVoted(couple : Couple, completion :  @escaping(_ voted : Bool) -> Void) {
+        
+        guard currentUID() != "" else {return}
+        
+        firebeseReference(.Couple).document(couple.id).collection(kVOTE).document(currentUID()).getDocument { (snapshot, error) in
+            
+            guard let snapshot = snapshot else {return}
+            
+            print(snapshot.exists)
+            completion(snapshot.exists)
+        }
+        
+    }
 }
 
 

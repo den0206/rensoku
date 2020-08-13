@@ -148,10 +148,8 @@ extension ChartsView : DetailHeaderViewDelegate {
                 return
             }
             
-            print("Call")
-            header.LikeButton.isEnabled = false
-            header.unLikeButton.isEnabled = false
-            
+            header.disableButton()
+
             print(self.goodCount)
             self.configureChartView()
 
@@ -166,9 +164,9 @@ extension ChartsView : DetailHeaderViewDelegate {
                 return
             }
             
+            header.disableButton()
             
-            header.LikeButton.isEnabled = false
-            header.unLikeButton.isEnabled = false
+            self.configureChartView()
 
         }
 

@@ -16,6 +16,8 @@ class CoupleDetailViewController : UIViewController {
     
     let couple : Couple
     
+    var voted = false
+    
     private var tableView = UITableView()
     
     init(couple : Couple) {
@@ -33,6 +35,10 @@ class CoupleDetailViewController : UIViewController {
         view.backgroundColor = .black
         configureUI()
         configureTV()
+        
+        checkVoted()
+        
+        
     }
     
     //MARK: - UI
@@ -50,7 +56,7 @@ class CoupleDetailViewController : UIViewController {
     
     private func configureTV() {
         
-        tableView.frame = CGRect(x: 0, y: 270, width: view.frame.width, height: view.frame.height)
+        tableView.frame = CGRect(x: 0, y: 300, width: view.frame.width, height: view.frame.height)
         tableView.backgroundColor = .black
         tableView.rowHeight = 80
         tableView.delegate = self
@@ -63,6 +69,18 @@ class CoupleDetailViewController : UIViewController {
         view.addSubview(tableView)
         
         
+    }
+    
+    //MARK: - API
+    
+    private func checkVoted() {
+        CoupleService.checkVoted(couple: couple) { (voted) in
+            
+            self.voted = voted
+            self.headerView.voted = voted
+            
+            
+        }
     }
 }
 
