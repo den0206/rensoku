@@ -90,7 +90,7 @@ class CoupleService {
         } else {
             
             guard let lastDocument = lastDocument else {return}
-            query = firebeseReference(.Couple).order(by: kDATE, descending: false).limit(to: limit).start(afterDocument: lastDocument)
+            query = firebeseReference(.Couple).order(by: kDATE, descending: false).start(afterDocument: lastDocument).limit(to: limit)
         }
         
         guard query != nil  else { completion(couples, nil, nil); return }
@@ -124,9 +124,7 @@ class CoupleService {
                             
                             return false
                         }
-                        
-                        print(sortd)
-                        
+                                            
                         let couple = Couple(json: data, persons: sortd)
                         
                         couples.append(couple)

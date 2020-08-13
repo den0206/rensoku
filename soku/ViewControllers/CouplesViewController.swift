@@ -64,6 +64,8 @@ class CouplesViewController : UITableViewController {
         
         self.navigationController?.showPresentLoadindView(true)
         
+        self.couples.removeAll(keepingCapacity: false)
+        
         CoupleService.fetchCouples(firstLoad: true, limit: 5, lastDocument: nil) { (couples, error, lastDocument) in
             
             if error != nil {
@@ -80,6 +82,27 @@ class CouplesViewController : UITableViewController {
             
             self.refreshController.endRefreshing()
 
+            self.navigationController?.showPresentLoadindView(false)
+        }
+    }
+    
+    /// padination
+    private func fetchMoreCouples() {
+        guard let lastDoc = lastDocument else {return}
+        
+        CoupleService.fetchCouples(firstLoad: false, limit: 5, lastDocument: lastDoc) { (couples, error, lastDocument) in
+            if error != nil {
+                
+                self.navigationController?.showPresentLoadindView(false)
+                self.showErrorAlert(message: error!.localizedDescription)
+                
+                return
+            }
+            
+            self.lastDocument = lastDocument
+            self.couples.append(contentsOf: couples)
+            
+            
             self.navigationController?.showPresentLoadindView(false)
         }
     }
@@ -105,6 +128,7 @@ extension CouplesViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        print(indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
         
         let couple = couples[indexPath.row]
@@ -112,6 +136,16 @@ extension CouplesViewController {
         let detailVC = CoupleDetailViewController(couple: couple)
         navigationController?.pushViewController(detailVC, animated: true)
         
+    }
+    
+    /// pagination
+    
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if couples.count >= 5 && indexPath.item == 0 {
+            
+            fetchMoreCouples()
+        }
     }
 }
 

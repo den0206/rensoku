@@ -175,7 +175,7 @@ extension ChartsView : DetailHeaderViewDelegate {
             }
             
             header.disableButton()
-            self.badCount -= 1
+            self.badCount += 1
             self.configureChartView()
             
             self.delegate?.dismissLoadingView()
