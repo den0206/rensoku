@@ -22,6 +22,10 @@ public let kRELATIONURL = "relationURL"
 public let kVOTE = "Vote"
 public let kLIKEDVOTE = "likedVote"
 
+public let kCOMMENT = "Comment"
+public let kCOMMENTID = "commentId"
+
+
 
 public let kPERSON1NAME = "person_1Name"
 public let kPERSON1PROFFESION = "person_1Proffesion"

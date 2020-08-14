@@ -105,11 +105,15 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        var commetCell : AddCommentCell!
         var cell : UITableViewCell!
         
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCell(withIdentifier: AddCommentCell.identifier, for: indexPath) as! AddCommentCell
+            commetCell = tableView.dequeueReusableCell(withIdentifier: AddCommentCell.identifier, for: indexPath) as? AddCommentCell
+            
+            commetCell.delegate = self
+            return commetCell
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
@@ -151,6 +155,23 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 80
     }
+    
+    
+}
+
+extension CoupleDetailViewController : AddCommentCellDelegate {
+    
+    func handleSend(text: String) {
+        
+        guard text != "" else {return}
+        guard currentUID() != "" else {return}
+        let commentId = UUID().uuidString
+        
+        let comment = Comment(id: commentId, text: text, date: Date(), userId: currentUID(), couple: couple)
+        
+        print(comment)
+    }
+    
     
     
 }

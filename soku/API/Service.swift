@@ -210,6 +210,15 @@ class CoupleService {
         }
         
     }
+    
+    //MARK: - Comments
+    
+    static func uploadComments(comment : Comment, couple : Couple, completion :  @escaping(Error?) -> Void) {
+        
+
+//
+//        firebeseReference(.Couple).document(couple.id).collection(kCOMMENT).document(commentId)
+    }
 }
 
 
