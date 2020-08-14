@@ -15,6 +15,7 @@ class CouplesViewController : UITableViewController {
     
     var couples = [Couple]() {
         didSet {
+            print(couples.count)
             tableView.reloadData()
         }
     }
@@ -53,8 +54,9 @@ class CouplesViewController : UITableViewController {
     
     @objc func handleRefresh() {
         
-        refreshController.beginRefreshing()
+        self.couples.removeAll(keepingCapacity: false)
         
+        refreshController.beginRefreshing()
         fetchCouples()
     }
     
@@ -64,7 +66,6 @@ class CouplesViewController : UITableViewController {
         
         self.navigationController?.showPresentLoadindView(true)
         
-        self.couples.removeAll(keepingCapacity: false)
         
         CoupleService.fetchCouples(firstLoad: true, limit: 5, lastDocument: nil) { (couples, error, lastDocument) in
             
@@ -90,7 +91,7 @@ class CouplesViewController : UITableViewController {
     private func fetchMoreCouples() {
         guard let lastDoc = lastDocument else {return}
         
-        CoupleService.fetchCouples(firstLoad: false, limit: 5, lastDocument: lastDoc) { (couples, error, lastDocument) in
+        CoupleService.fetchCouples(firstLoad: false, limit: 5, lastDocument: lastDoc) { (moreCouples, error, lastDocument) in
             if error != nil {
                 
                 self.navigationController?.showPresentLoadindView(false)
@@ -100,7 +101,7 @@ class CouplesViewController : UITableViewController {
             }
             
             self.lastDocument = lastDocument
-            self.couples.append(contentsOf: couples)
+            self.couples.append(contentsOf: moreCouples)
             
             
             self.navigationController?.showPresentLoadindView(false)
@@ -128,7 +129,6 @@ extension CouplesViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print(indexPath.row)
         tableView.deselectRow(at: indexPath, animated: true)
         
         let couple = couples[indexPath.row]
@@ -142,8 +142,9 @@ extension CouplesViewController {
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        if couples.count >= 5 && indexPath.item == 0 {
-            
+       
+        if couples.count >= 5 && indexPath.row == (self.couples.count - 2) {
+             print("Call")
             fetchMoreCouples()
         }
     }

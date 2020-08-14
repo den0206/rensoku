@@ -57,12 +57,15 @@ class CoupleDetailViewController : UIViewController {
         
         tableView.frame = CGRect(x: 0, y: 300, width: view.frame.width, height: view.frame.height)
         tableView.backgroundColor = .black
-        tableView.rowHeight = 80
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .singleLine
+        tableView.separatorColor = .white
         tableView.tableHeaderView = chartView
         chartView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 200)
         
+        /// section1
+        tableView.register(AddCommentCell.self, forCellReuseIdentifier: AddCommentCell.identifier)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
 
         view.addSubview(tableView)
@@ -84,15 +87,69 @@ class CoupleDetailViewController : UIViewController {
 
 extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        
+        switch section {
+        case 0:
+            return 1
+        case 1 :
+            return 20
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        var cell : UITableViewCell!
+        
+        switch indexPath.section {
+        case 0:
+            cell = tableView.dequeueReusableCell(withIdentifier: AddCommentCell.identifier, for: indexPath) as! AddCommentCell
+        default:
+            cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        }
+        
+      
         cell.backgroundColor = .black
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        switch indexPath.section {
+        case 0:
+            return 150
+        default:
+            return 80
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "新しいコメント"
+        case 1 :
+            return "Comments"
+        default:
+            return ""
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        
+        view.tintColor = .black
+        
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = .white
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 80
     }
     
     
