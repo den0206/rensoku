@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3A063A3C24D9A3C900AFB468 /* CouplesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A063A3B24D9A3C900AFB468 /* CouplesViewController.swift */; };
+		3A301D7924E7B10800678658 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A301D7824E7B10800678658 /* CommentCell.swift */; };
 		3A34C18224D5507700B261C3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A34C18124D5507700B261C3 /* Extensions.swift */; };
 		3A3E357D24D659A500661C51 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E357C24D659A500661C51 /* Service.swift */; };
 		3A3E357F24D65A3400661C51 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3E357E24D65A3400661C51 /* LoginViewController.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		3A063A3B24D9A3C900AFB468 /* CouplesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CouplesViewController.swift; sourceTree = "<group>"; };
+		3A301D7824E7B10800678658 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		3A34C18124D5507700B261C3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		3A3E357C24D659A500661C51 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		3A3E357E24D65A3400661C51 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				3ACC6B7624DE471D0079CED3 /* CouplesCell.swift */,
 				3AE9D28924E62C8300E3DD5F /* AddCommentCell.swift */,
 				3AE9D28B24E62D7300E3DD5F /* CustomInputTextView.swift */,
+				3A301D7824E7B10800678658 /* CommentCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				3AD7C62724D5286300655A15 /* SceneDelegate.swift in Sources */,
 				3AD7C63924D528B700655A15 /* CoupleDetailViewController.swift in Sources */,
 				3A3E357D24D659A500661C51 /* Service.swift in Sources */,
+				3A301D7924E7B10800678658 /* CommentCell.swift in Sources */,
 				3AB449F124D6FB5B0040EA63 /* AddCoupleViewController.swift in Sources */,
 				3ACC6B7724DE471D0079CED3 /* CouplesCell.swift in Sources */,
 				3AB097E224D686F50096BA9C /* AddNewsViewModel.swift in Sources */,

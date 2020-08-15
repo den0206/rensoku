@@ -8,6 +8,7 @@
 
 import UIKit
 import Charts
+import FirebaseFirestore
 
 class CoupleDetailViewController : UIViewController {
     
@@ -15,6 +16,13 @@ class CoupleDetailViewController : UIViewController {
     lazy var chartView = ChartsView(couple: couple)
     
     let couple : Couple
+    var comments = [Comment]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var lastDocument : DocumentSnapshot?
     
     var voted = false
     
@@ -68,7 +76,16 @@ class CoupleDetailViewController : UIViewController {
         
         /// section1
         tableView.register(AddCommentCell.self, forCellReuseIdentifier: AddCommentCell.identifier)
+        
+        /// section2
+        tableView.register(CommentCell.self, forCellReuseIdentifier: CommentCell.identifier)
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        tableView.contentOffset.y = -70
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 350, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 350, right: 0)
+      
 
         view.addSubview(tableView)
         
@@ -94,7 +111,10 @@ class CoupleDetailViewController : UIViewController {
                 return
             }
             
+            self.comments = comments
             print(comments.count)
+            self.lastDocument = lastDocument
+   
         }
     }
 }
@@ -111,7 +131,7 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
         case 0:
             return 1
         case 1 :
-            return 20
+            return comments.count
         default:
             return 0
         }
@@ -119,15 +139,24 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var commetCell : AddCommentCell!
+        var addCell : AddCommentCell!
+        var commentCell  : CommentCell!
         var cell : UITableViewCell!
         
         switch indexPath.section {
         case 0:
-            commetCell = tableView.dequeueReusableCell(withIdentifier: AddCommentCell.identifier, for: indexPath) as? AddCommentCell
+            addCell = tableView.dequeueReusableCell(withIdentifier: AddCommentCell.identifier, for: indexPath) as? AddCommentCell
             
-            commetCell.delegate = self
-            return commetCell
+            addCell.delegate = self
+            return addCell
+            
+        case 1 :
+            commentCell = tableView.dequeueReusableCell(withIdentifier: CommentCell.identifier, for: indexPath) as? CommentCell
+            
+            commentCell.comment = comments[indexPath.row]
+            
+            return commentCell
+            
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         }
@@ -143,9 +172,22 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
         case 0:
             return 150
         default:
-            return 80
+            let text = comments[indexPath.row].text
+            var height: CGFloat = 80
+            
+            height = estimatedFrameForText(text: text).height + 30
+
+            return height
         }
     }
+    
+    private func estimatedFrameForText(text: String) -> CGRect {
+        let size = CGSize(width: 250, height: 250)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+    }
+       
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
@@ -174,8 +216,10 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
 }
 
 
+
 extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate {
     
+    //MARK: - Add Comments
     func handleSend(text: String, textView: CustomInputTextView) {
         
         guard text != "" else {return}

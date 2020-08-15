@@ -206,7 +206,6 @@ class CoupleService {
             
             guard let snapshot = snapshot else {return}
             
-            print(snapshot.exists)
             completion(snapshot.exists)
         }
         
@@ -258,7 +257,20 @@ class CoupleService {
             
             guard let snapshot = snapshot else {return}
             
-            print(snapshot)
+            let lastDocument = snapshot.documents.last
+            snapshot.documents.forEach { (document) in
+                
+                let documentId = document.documentID
+                let date = document.data()
+                let comment = Comment(json: date, commentId: documentId, couple: couple)
+                
+                comments.append(comment)
+                
+                if comments.count == snapshot.documents.count {
+                    completion(comments,nil,lastDocument)
+                }
+                
+            }
             
         }
         
