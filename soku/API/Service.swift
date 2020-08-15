@@ -234,11 +234,11 @@ class CoupleService {
         var comments = [Comment]()
         
         if isInitial {
-            query = firestore.collectionGroup(kCOMMENT).whereField(kCOUPLEID, isEqualTo: couple.id).order(by: kDATE, descending: false)
+            query = firestore.collectionGroup(kCOMMENT).whereField(kCOUPLEID, isEqualTo: couple.id).order(by: kDATE, descending: true).limit(to: limit)
         } else {
             guard let lastDocument = lastDocument else {return}
             
-            query = firestore.collectionGroup(kCOMMENT).whereField(kCOUPLEID, isEqualTo: couple.id).order(by: kDATE, descending: false).start(afterDocument: lastDocument)
+            query = firestore.collectionGroup(kCOMMENT).whereField(kCOUPLEID, isEqualTo: couple.id).order(by: kDATE, descending: true).start(afterDocument: lastDocument).limit(to: limit)
         }
         
         guard query != nil else {

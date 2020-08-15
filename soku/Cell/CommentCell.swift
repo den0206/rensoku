@@ -18,22 +18,33 @@ class CommentCell : UITableViewCell {
         }
     }
     
-    let commentLabel : UILabel = {
-        let label = UILabel()
-        label.text = "Comments"
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.numberOfLines = 0
-        label.textColor = .white
-        return label
+    let commentView : UITextView = {
+        
+        let tv = UITextView()
+        tv.backgroundColor = .clear
+        tv.isScrollEnabled = false
+        tv.font = UIFont.systemFont(ofSize: 16)
+        tv.isEditable = false
+        tv.textColor = .white
+        tv.text = "Test"
+        
+        return tv
+        
+
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .black
+        selectionStyle = .none
+
         
-        addSubview(commentLabel)
-        commentLabel.anchor(top : topAnchor,left:  leftAnchor,bottom: bottomAnchor,right: rightAnchor,paddingTop: 16,paddingLeft: 16, paddingBottom: 16, paddingRight: 16)
+        addSubview(commentView)
+        
+//        commentView.widthAnchor.constraint(lessThanOrEqualToConstant: 250).isActive = true
+        
+        commentView.anchor(top : topAnchor,left:  leftAnchor,bottom: bottomAnchor,right: rightAnchor,paddingTop: 8,paddingLeft: 16, paddingBottom: 4, paddingRight: 16)
     }
     
     required init?(coder: NSCoder) {
@@ -44,7 +55,7 @@ class CommentCell : UITableViewCell {
     private func configureUI() {
         
         guard let comment = comment else {return}
-        commentLabel.text = comment.text
+        commentView.text = comment.text
         
     }
     

@@ -16,8 +16,10 @@ class CoupleDetailViewController : UIViewController {
     lazy var chartView = ChartsView(couple: couple)
     
     let couple : Couple
+    
     var comments = [Comment]() {
         didSet {
+            print(comments.count)
             tableView.reloadData()
         }
     }
@@ -46,7 +48,6 @@ class CoupleDetailViewController : UIViewController {
         
         checkVoted()
         fetchComments()
-        
         
         
     }
@@ -85,11 +86,31 @@ class CoupleDetailViewController : UIViewController {
         tableView.contentOffset.y = -70
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 350, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 350, right: 0)
-      
+        
 
         view.addSubview(tableView)
         
         
+    }
+    
+    //MARK: - configure footer
+    
+    private func configureFootter() {
+        
+        let footer = UIView(frame: .zero)
+        
+        if comments.count >= 5 && comments.count % 5 == 0 {
+            
+            let moreButton = createMoreButton()
+
+            footer.addSubview(moreButton)
+            moreButton.center(inView: footer)
+            
+            footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        
+        }
+        
+        tableView.tableFooterView = footer
     }
     
     //MARK: - API
@@ -112,10 +133,57 @@ class CoupleDetailViewController : UIViewController {
             }
             
             self.comments = comments
-            print(comments.count)
             self.lastDocument = lastDocument
+            
+            self.configureFootter()
    
         }
+    }
+    
+    /// pagination
+    
+    @objc func handleMore() {
+        guard let lastDocument = lastDocument else {return}
+        
+        self.navigationController?.showPresentLoadindView(true)
+
+        
+        CoupleService.fetchComments(couple: couple, isInitial: false, limit: 5, lastDocument: lastDocument) { (comments, error, lastDoc) in
+            
+            if error != nil {
+                print(error!.localizedDescription)
+                self.navigationController?.showPresentLoadindView(false)
+
+                return
+            }
+            
+            self.comments.append(contentsOf: comments)
+            self.lastDocument = lastDoc
+            
+            self.configureFootter()
+            
+            self.navigationController?.showPresentLoadindView(false)
+
+
+        }
+    }
+    
+    //MARK: - helper
+    
+    private func createMoreButton() -> UIButton {
+        
+        let moreButton = UIButton(type: .system)
+        moreButton.backgroundColor = .clear
+        moreButton.layer.borderWidth = 1
+        moreButton.layer.borderColor = UIColor.white.cgColor
+        moreButton.setTitle("Show More", for: .normal)
+        moreButton.setTitleColor(.white, for: .normal)
+        moreButton.clipsToBounds = true
+        moreButton.layer.cornerRadius = 13 / 2
+        moreButton.addTarget(self, action: #selector(handleMore), for: .touchUpInside)
+        moreButton.setDimensions(height: 50, width: 100)
+        
+        return moreButton
     }
 }
 
@@ -173,16 +241,15 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
             return 150
         default:
             let text = comments[indexPath.row].text
-            var height: CGFloat = 80
+            var height: CGFloat
             
             height = estimatedFrameForText(text: text).height + 30
-
             return height
         }
     }
     
     private func estimatedFrameForText(text: String) -> CGRect {
-        let size = CGSize(width: 250, height: 250)
+        let size = CGSize(width: view.frame.width, height: 250)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
         return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
@@ -241,6 +308,8 @@ extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate
             }
             
             textView.text = ""
+            
+            self.comments.append(comment)
             self.navigationController?.showPresentLoadindView(false)
 
         }
