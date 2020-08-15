@@ -37,6 +37,8 @@ class CoupleDetailViewController : UIViewController {
         configureTV()
         
         checkVoted()
+        fetchComments()
+        
         
         
     }
@@ -81,6 +83,18 @@ class CoupleDetailViewController : UIViewController {
             self.voted = voted
             self.headerView.voted = voted
 
+        }
+    }
+    
+    private func fetchComments() {
+        CoupleService.fetchComments(couple: couple, isInitial: true, limit: 5, lastDocument: nil) { (comments, error, lastDocument) in
+            
+            if error != nil {
+                print(error!.localizedDescription)
+                return
+            }
+            
+            print(comments.count)
         }
     }
 }
@@ -159,24 +173,38 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
     
 }
 
-extension CoupleDetailViewController : AddCommentCellDelegate {
+
+extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate {
     
-    func handleSend(text: String) {
+    func handleSend(text: String, textView: CustomInputTextView) {
         
         guard text != "" else {return}
         guard currentUID() != "" else {return}
         let commentId = UUID().uuidString
         
+        self.navigationController?.showPresentLoadindView(true)
+
+        
         let comment = Comment(id: commentId, text: text, date: Date(), userId: currentUID(), couple: couple)
         
-        print(comment)
+        CoupleService.uploadComments(comment: comment, couple: couple) { (error) in
+            
+            if error != nil {
+                self.navigationController?.showPresentLoadindView(false)
+
+                self.showErrorAlert(message: error!.localizedDescription)
+                return
+            }
+            
+            textView.text = ""
+            self.navigationController?.showPresentLoadindView(false)
+
+        }
     }
     
     
     
-}
-
-extension CoupleDetailViewController : ChartsViewDelegate {
+ 
     func showLoadingView() {
         self.navigationController?.showPresentLoadindView(true)
     }

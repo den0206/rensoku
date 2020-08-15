@@ -11,6 +11,7 @@ import Firebase
 
 class Service {
     
+    
     static func anonymousLogin(completion :  @escaping(Error?) -> Void) {
         Auth.auth().signInAnonymously { (result, error) in
             
@@ -215,10 +216,55 @@ class CoupleService {
     
     static func uploadComments(comment : Comment, couple : Couple, completion :  @escaping(Error?) -> Void) {
         
+        // TODO: - upload firebase
+        
+        let value = [kUID : comment.userId,
+                     kDATE : Timestamp(date: comment.date),
+                     kCOMMENT : comment.text,
+                     kCOUPLEID : couple.id] as [String : Any]
 
-//
-//        firebeseReference(.Couple).document(couple.id).collection(kCOMMENT).document(commentId)
+        
+        firebeseReference(.Couple).document(couple.id).collection(kCOMMENT).document(comment.id).setData(value, completion: completion)
+        
     }
+    
+    static func fetchComments(couple : Couple, isInitial : Bool, limit : Int, lastDocument : DocumentSnapshot?, completion :  @escaping(_ comments : [Comment], _ error : Error?, _ lastDocument : DocumentSnapshot?) -> Void) {
+        
+        let firestore = Firestore.firestore()
+        var query : Query!
+        var comments = [Comment]()
+        
+        if isInitial {
+            query = firestore.collectionGroup(kCOMMENT).whereField(kCOUPLEID, isEqualTo: couple.id).order(by: kDATE, descending: false)
+        } else {
+            guard let lastDocument = lastDocument else {return}
+            
+            query = firestore.collectionGroup(kCOMMENT).whereField(kCOUPLEID, isEqualTo: couple.id).order(by: kDATE, descending: false).start(afterDocument: lastDocument)
+        }
+        
+        guard query != nil else {
+            print("No Query")
+            completion(comments,nil, nil)
+            
+            return
+        }
+        
+        query.getDocuments { (snapshot, error) in
+            
+            if error != nil {
+                completion(comments,error,nil)
+                return
+            }
+            
+            guard let snapshot = snapshot else {return}
+            
+            print(snapshot)
+            
+        }
+        
+        
+    }
+
 }
 
 

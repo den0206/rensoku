@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddCommentCellDelegate : class {
-    func handleSend(text : String)
+    func handleSend(text : String, textView : CustomInputTextView)
 }
 
 class AddCommentCell : UITableViewCell, UITextViewDelegate {
@@ -61,8 +61,8 @@ class AddCommentCell : UITableViewCell, UITextViewDelegate {
     @objc func handleSend() {
         
         guard let text = commentTextView.text else {return}
-        
-        delegate?.handleSend(text: text)
+                    
+        delegate?.handleSend(text: text, textView: commentTextView)
     }
     
     //MARK: - UITextView delegate
