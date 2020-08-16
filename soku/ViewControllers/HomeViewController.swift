@@ -14,6 +14,13 @@ class HomeViewController : UIViewController {
     
     //MARK: - parts
     
+    private let logoImageView : UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "soku")
+        iv.contentMode = .scaleAspectFit
+        iv.setDimensions(height: 250, width: 250)
+        return iv
+    }()
     
     
     private let uidLabel : UILabel = {
@@ -51,6 +58,9 @@ class HomeViewController : UIViewController {
         
         view.addSubview(actionButton)
         actionButton.anchor( top: view.safeAreaLayoutGuide.topAnchor, right: view.rightAnchor, paddingTop : 16, paddingRight: 16, width: 48, height: 48)
+        
+        view.addSubview(logoImageView)
+        logoImageView.center(inView: view)
 
         view.addSubview(uidLabel)
         uidLabel.text = "\(uid!) さん"

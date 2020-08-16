@@ -132,6 +132,8 @@ class ChartsView : UIView {
                 dateEntries = [PieChartDataEntry(value:100 , label: "投稿がありません")]
             } else {
                 dateEntries = [
+//                    PieChartDataEntry(value: 55, label: ""),
+//                    PieChartDataEntry(value: 28, label: "")
                     PieChartDataEntry(value: encodeDouble(count: badCount), label: "ショック"),
                     PieChartDataEntry(value: encodeDouble(count: goodCount), label: "お似合い！")
                 ]
