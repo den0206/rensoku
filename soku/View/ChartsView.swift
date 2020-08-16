@@ -55,6 +55,15 @@ class ChartsView : UIView {
         return iv
     }()
     
+    private let sadCounterLabel : UILabel =  {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = .systemBlue
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
     private let goodEmojiView : UIImageView = {
         let iv = UIImageView()
         let image = "🥰".textToImage()
@@ -65,6 +74,16 @@ class ChartsView : UIView {
         return iv
     }()
     
+    private let goodCounterLabel : UILabel =  {
+        let label = UILabel()
+        label.text = "0"
+        label.textColor = .systemPink
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        return label
+    }()
+    
+    
     init(couple : Couple) {
         self.couple = couple
         super.init(frame: .zero)
@@ -74,6 +93,20 @@ class ChartsView : UIView {
         self.backgroundColor = .black
         addSubview(pieChart)
         pieChart.anchor(top: topAnchor,left: leftAnchor,bottom: bottomAnchor,right: rightAnchor, paddingTop: 16,paddingLeft: 16,paddingBottom: 16,paddingRight: 16)
+        
+        pieChart.addSubview(sadEmojiView)
+        sadEmojiView.anchor(top : topAnchor,left: leftAnchor,paddingTop: 16,paddingLeft: 16)
+        
+        pieChart.addSubview(sadCounterLabel)
+        sadCounterLabel.centerX(inView: sadEmojiView)
+        sadCounterLabel.anchor(top : sadEmojiView.bottomAnchor,paddingTop: 8)
+        
+        pieChart.addSubview(goodEmojiView)
+        goodEmojiView.anchor(top : topAnchor,right : rightAnchor,paddingTop: 16,paddingRight: 16)
+        
+        pieChart.addSubview(goodCounterLabel)
+        goodCounterLabel.centerX(inView: goodEmojiView)
+        goodCounterLabel.anchor(top : goodEmojiView.bottomAnchor,paddingTop: 8)
         
         configureChartView()
     }
@@ -104,6 +137,8 @@ class ChartsView : UIView {
                 ]
             }
             
+            print(dateEntries)
+            print(encodeDouble(count: badCount), encodeDouble(count: goodCount))
             
             
             let dataSet = PieChartDataSet(entries: dateEntries, label: "")
@@ -111,6 +146,7 @@ class ChartsView : UIView {
             dataSet.colors = [#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1) , .systemPink]
             dataSet.entryLabelColor = .white
             dataSet.valueTextColor = .white
+            dataSet.entryLabelFont =  UIFont(name: "Avenir-Light", size: 12)
 
             
             pieChart.data = PieChartData(dataSet: dataSet)
@@ -123,11 +159,10 @@ class ChartsView : UIView {
             
 //            addSubview(pieChart)
             
-            pieChart.addSubview(sadEmojiView)
-            sadEmojiView.anchor(top : topAnchor,left: leftAnchor,paddingTop: 16,paddingLeft: 16)
+            sadCounterLabel.text = String(badCount)
+            goodCounterLabel.text = String(goodCount)
             
-            pieChart.addSubview(goodEmojiView)
-            goodEmojiView.anchor(top : topAnchor,right : rightAnchor,paddingTop: 16,paddingRight: 16)
+           
             
             
         }
@@ -136,9 +171,10 @@ class ChartsView : UIView {
     
     private func encodeDouble(count : Int) -> Double {
         
-        let sumVoteCount = goodCount + badCount
-
-        return Double(count / sumVoteCount * 100)
+        let enc = Double(count)
+        let sumVoteCount = Double(goodCount + badCount)
+      
+        return enc / sumVoteCount * 100.0
     }
 }
 

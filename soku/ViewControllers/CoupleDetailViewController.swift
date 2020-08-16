@@ -19,7 +19,6 @@ class CoupleDetailViewController : UIViewController {
     
     var comments = [Comment]() {
         didSet {
-            print(comments.count)
             tableView.reloadData()
         }
     }
@@ -106,7 +105,7 @@ class CoupleDetailViewController : UIViewController {
             footer.addSubview(moreButton)
             moreButton.center(inView: footer)
             
-            footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+            footer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
         
         }
         
@@ -309,7 +308,7 @@ extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate
             
             textView.text = ""
             
-            self.comments.append(comment)
+            self.comments.insert(comment, at: 0)
             self.navigationController?.showPresentLoadindView(false)
 
         }
