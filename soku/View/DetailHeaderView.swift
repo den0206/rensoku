@@ -60,6 +60,16 @@ class DetailHeaderView : UIView {
         return label
     }()
     
+    private lazy var madeByUserIdLabel : UILabel = {
+        let label = UILabel()
+        label.text = "Made By \(couple.userID)"
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .white
+        label.textAlignment = .right
+        
+        return label
+    }()
+    
     let LikeButton : UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("お似合い", for: .normal)
@@ -90,8 +100,7 @@ class DetailHeaderView : UIView {
     lazy var buttonStack = UIStackView(arrangedSubviews: [unLikeButton,LikeButton])
    
     
-    lazy var stack = UIStackView(arrangedSubviews: [manNameLabel, heartImage,womanNameLabel, buttonStack])
-
+    lazy var stack = UIStackView(arrangedSubviews: [manNameLabel, heartImage,womanNameLabel, madeByUserIdLabel, buttonStack])
     
     init(couple : Couple) {
         self.couple = couple

@@ -173,8 +173,43 @@ class CoupleService {
                 }
             }
         }
+    }
+    
+    static func fetchAllPerson(filter : String?, completion :  @escaping([Person]) -> Void) {
         
+        var query : Query!
         
+        switch filter {
+        case kMAN:
+            query = firebeseReference(.Person).whereField(kSEX, isEqualTo: "Man")
+        case kWOMAN :
+            query = firebeseReference(.Person).whereField(kSEX, isEqualTo: "Woman")
+
+        default:
+            query = firebeseReference(.Person)
+        }
+        
+        query.getDocuments { (snapshot, error) in
+            var persons = [Person]()
+            
+            guard let snapshot = snapshot else {return}
+            
+            if !snapshot.isEmpty {
+                
+                snapshot.documents.forEach { (doc) in
+                    let data = doc.data()
+                    let person = Person(json: data)
+                    
+                    persons.append(person)
+                    
+                    if persons.count == snapshot.documents.count {
+                        completion(persons)
+                    }
+                }
+            } else {
+                completion(persons)
+            }
+        }
     }
     
     //MARK: - Vote

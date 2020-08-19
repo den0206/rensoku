@@ -15,6 +15,9 @@ class CoupleDetailViewController : UIViewController {
     lazy var headerView = DetailHeaderView(couple: couple)
     lazy var chartView = ChartsView(couple: couple)
     
+    var addCell : AddCommentCell!
+    var commentCell  : CommentCell!
+    
     let couple : Couple
     
     var comments = [Comment]() {
@@ -85,7 +88,7 @@ class CoupleDetailViewController : UIViewController {
         tableView.contentOffset.y = -70
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 350, right: 0)
         tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 350, right: 0)
-        
+
 
         view.addSubview(tableView)
         
@@ -167,6 +170,8 @@ class CoupleDetailViewController : UIViewController {
         }
     }
     
+  
+    
     //MARK: - helper
     
     private func createMoreButton() -> UIButton {
@@ -206,8 +211,7 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var addCell : AddCommentCell!
-        var commentCell  : CommentCell!
+       
         var cell : UITableViewCell!
         
         switch indexPath.section {
@@ -283,7 +287,7 @@ extension CoupleDetailViewController : UITableViewDelegate,UITableViewDataSource
 
 
 
-extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate {
+extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate{
     
     //MARK: - Add Comments
     func handleSend(text: String, textView: CustomInputTextView) {
@@ -325,7 +329,7 @@ extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate
         self.navigationController?.showPresentLoadindView(false)
 
     }
-    
+
     
 }
 

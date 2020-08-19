@@ -39,6 +39,9 @@ public let kNAME = "name"
 public let kPROFFESION = "proffesion"
 public let kSEX = "sex"
 
+public let kMAN = "man"
+public let kWOMAN = "woman"
+
 public let kCOUPLEIDS = "coupleIds"
 
 

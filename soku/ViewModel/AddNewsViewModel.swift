@@ -22,8 +22,6 @@ enum NewsSections : Int, CaseIterable {
             return "2人目"
         case .url :
             return "関連URL"
-        default:
-            break
         }
     }
     

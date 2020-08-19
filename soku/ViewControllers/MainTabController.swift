@@ -30,6 +30,9 @@ class MainTabController : UITabBarController {
         let couplesVC = CouplesViewController()
         let nav1 = createNavController(image: UIImage(systemName: "person.2.fill"), title: "カップル", rootVC: couplesVC)
         
+        let searchVC = SearchViewController()
+        let nav2 = createNavController(image: UIImage(systemName: "magnifyingglass"), title: "サーチ", rootVC: searchVC)
+        
         
         
 //        let detailVC = CoupleDetailViewController()
@@ -37,7 +40,7 @@ class MainTabController : UITabBarController {
 //        nav2.navigationBar.isHidden = true
         
         UITabBar.appearance().barTintColor = UIColor.black
-        viewControllers = [homeVC, nav1]
+        viewControllers = [homeVC, nav1, nav2]
         UITabBar.appearance().tintColor = .white
         tabBar.unselectedItemTintColor = .black
 
