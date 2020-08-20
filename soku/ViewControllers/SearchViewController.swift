@@ -42,6 +42,8 @@ class SearchViewController : UITableViewController {
         configureSearch()
         
         fetchPersons()
+        
+//        print(TextConverter.convert("酒井", to: .katakana))
     }
     
     //MARK: - UI
@@ -123,6 +125,23 @@ extension SearchViewController {
         cell.person = person
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        var person : Person
+        
+        if searchController.isActive && searchController.searchBar.text != "" {
+            person = filterPersons[indexPath.row]
+        } else {
+            person = persons[indexPath.row]
+        }
+        
+        
+        
+        let detailVC = PersonDetailView(peson: person)
+        navigationController?.pushViewController(detailVC, animated: true)
+        
     }
 }
 

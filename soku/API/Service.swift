@@ -35,11 +35,13 @@ class Service {
     
     static func saveCouple(couple : Couple, relationUrl : String?, completion :  @escaping(Error?) -> Void) {
         
-        [couple.person1,couple.person2].forEach { (person) in
+        let persons =  [couple.person1,couple.person2]
+        
+        persons.forEach { (person) in
             
             let personValue = [ kNAME : person.name,
-                                         kPROFFESION : person.proffesion,
-                                         kSEX :person.sex]
+                                kPROFFESION : person.proffesion,
+                                kSEX :person.sex]
             
             firebeseReference(.Person).document(person.name).setData(personValue,merge: true)
             
@@ -47,23 +49,20 @@ class Service {
             
             
         }
+        let personNames =  [couple.person1.name,couple.person2.name]
         
         var value = [kCOUPLEID : couple.id,
                      kUID : couple.userID,
                      kDATE : Timestamp(date: couple.date),
-                     kPERSON1NAME : couple.person1.name,
-                     kPERSON2NAME : couple.person2.name] as [String : Any]
-        
+                     kPERSONS : personNames] as [String : Any]
         
 //        var value = [kCOUPLEID : couple.id,
 //                     kUID : couple.userID,
 //                     kDATE : Timestamp(date: couple.date),
 //                     kPERSON1NAME : couple.person1.name,
-//                     kPERSON1PROFFESION : couple.person1.proffesion,
-//                     kPERSON1SEX :couple.person1.sex,
-//                     kPERSON2NAME : couple.person2.name,
-//                     kPERSON2PROFFESION : couple.person2.proffesion,
-//                     kPERSON2SEX :couple.person2.sex ] as [String : Any]
+//                     kPERSON2NAME : couple.person2.name] as [String : Any]
+        
+
         
         
         if relationUrl != nil {
@@ -112,8 +111,11 @@ class CoupleService {
                 snapshot.documents.forEach { (doc) in
                     
                     let data = doc.data()
-                    let person1Name = doc[kPERSON1NAME] as! String
-                    let person2Name = doc[kPERSON2NAME] as! String
+                    let person1Name = (doc[kPERSONS] as! [String])[0]
+                    let person2Name = (doc[kPERSONS] as! [String])[1]
+                    
+                    // let person1Name = doc[kPERSON1NAME] as! String
+                    // let person2Name = doc[kPERSON2NAME] as! String
                     
                     ///上に"Man"
                     fetchPersons(names: [person1Name,person2Name]) { (persons) in
@@ -210,6 +212,49 @@ class CoupleService {
                 completion(persons)
             }
         }
+    }
+    
+    static func fetchCoupleFromPeson(person : Person, completion :  @escaping([Couple]) -> Void) {
+        
+        var couples = [Couple]()
+
+        firebeseReference(.Couple).whereField(kPERSONS, arrayContains: person.name) .getDocuments { (snapshot, error) in
+            
+            guard let snapshot = snapshot else {return}
+            
+            if !snapshot.isEmpty {
+                snapshot.documents.forEach { (document) in
+                    let data = document.data()
+                    let peson1Name = person.name
+                    let peson2Name : String = (data[kPERSONS] as! [String])[0] == person.name ? (data[kPERSONS] as! [String])[1] : (data[kPERSONS] as! [String])[0]
+                    
+                    fetchPersons(names: [peson1Name,peson2Name]) { (persons) in
+                         /// 上にメインパーソン
+                        let sortd = persons.sorted { (lperson, rpeson) -> Bool in
+                            if lperson.name == person.name {
+                                return true
+                            }
+                            
+                            return false
+                        }
+                        
+                        let couple = Couple(json: data, persons: sortd)
+                        
+                        couples.append(couple)
+                        
+                        if couples.count == snapshot.documents.count {
+                            completion(couples)
+                        }
+                        
+                    }
+                    
+                }
+            } else {
+                print("empty")
+            }
+            
+        }
+        
     }
     
     //MARK: - Vote

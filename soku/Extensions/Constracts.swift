@@ -25,6 +25,7 @@ public let kLIKEDVOTE = "likedVote"
 public let kCOMMENT = "Comment"
 public let kCOMMENTID = "commentId"
 
+public let kPERSONS = "Pesons"
 
 public let kPERSON1NAME = "person_1Name"
 public let kPERSON1PROFFESION = "person_1Proffesion"

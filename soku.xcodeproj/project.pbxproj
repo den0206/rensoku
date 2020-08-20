@@ -35,6 +35,7 @@
 		3AE19A2A24E6786A00023637 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE19A2924E6786A00023637 /* Comment.swift */; };
 		3AE9D28A24E62C8300E3DD5F /* AddCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9D28924E62C8300E3DD5F /* AddCommentCell.swift */; };
 		3AE9D28C24E62D7300E3DD5F /* CustomInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AE9D28B24E62D7300E3DD5F /* CustomInputTextView.swift */; };
+		3AFF8F9624EE933A009AA6BD /* PersonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFF8F9524EE933A009AA6BD /* PersonDetailView.swift */; };
 		84C32C636C0310CA91D20D8A /* Pods_soku.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D2F273483B4B2DDB5C5AE9 /* Pods_soku.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		3AE19A2924E6786A00023637 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		3AE9D28924E62C8300E3DD5F /* AddCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCommentCell.swift; sourceTree = "<group>"; };
 		3AE9D28B24E62D7300E3DD5F /* CustomInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputTextView.swift; sourceTree = "<group>"; };
+		3AFF8F9524EE933A009AA6BD /* PersonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailView.swift; sourceTree = "<group>"; };
 		42796CD093D36370BD537008 /* Pods-soku.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soku.debug.xcconfig"; path = "Target Support Files/Pods-soku/Pods-soku.debug.xcconfig"; sourceTree = "<group>"; };
 		6B05F688C36F3B4484832A62 /* Pods-soku.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soku.release.xcconfig"; path = "Target Support Files/Pods-soku/Pods-soku.release.xcconfig"; sourceTree = "<group>"; };
 		C9D2F273483B4B2DDB5C5AE9 /* Pods_soku.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_soku.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -153,6 +155,7 @@
 				3AD7C63824D528B700655A15 /* CoupleDetailViewController.swift */,
 				3AB449F024D6FB5B0040EA63 /* AddCoupleViewController.swift */,
 				3A9CE86324ED3CAB0004A06A /* SearchViewController.swift */,
+				3AFF8F9524EE933A009AA6BD /* PersonDetailView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				3AD7C63924D528B700655A15 /* CoupleDetailViewController.swift in Sources */,
 				3A3E357D24D659A500661C51 /* Service.swift in Sources */,
 				3A301D7924E7B10800678658 /* CommentCell.swift in Sources */,
+				3AFF8F9624EE933A009AA6BD /* PersonDetailView.swift in Sources */,
 				3AB449F124D6FB5B0040EA63 /* AddCoupleViewController.swift in Sources */,
 				3ACC6B7724DE471D0079CED3 /* CouplesCell.swift in Sources */,
 				3AB097E224D686F50096BA9C /* AddNewsViewModel.swift in Sources */,
