@@ -8,9 +8,16 @@
 
 import UIKit
 
+enum CoupleCellType {
+    case All
+    case Person
+}
+
 class CouplesCell : UITableViewCell {
     
     static let identifier = "CouplesCell"
+    
+    var type : CoupleCellType?
     
     var couple : Couple? {
         didSet {
@@ -64,21 +71,12 @@ class CouplesCell : UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        /// selcted View
         let selectedView = UIView()
         selectedView.backgroundColor = .blue
         selectedBackgroundView = selectedView
         
         backgroundColor = .black
-        
-        let stack = UIStackView(arrangedSubviews: [person1Label,heartImage, person2Label])
-        
-        stack.axis = .vertical
-        stack.spacing = 16
-        stack.distribution = .fillProportionally
-        
-        addSubview(stack)
-        stack.anchor(top: topAnchor,left: leftAnchor,bottom: bottomAnchor,right: rightAnchor,paddingTop: 16,paddingLeft: 16,paddingBottom: 16,paddingRight: 16)
-
         
     }
     
@@ -92,6 +90,33 @@ class CouplesCell : UITableViewCell {
     //MARK: - UI
     
     private func configureUI() {
+        
+        guard let type = type else {return}
+        
+        switch type {
+            
+        case .All:
+          
+            let stack = UIStackView(arrangedSubviews: [person1Label,heartImage, person2Label])
+            
+            stack.axis = .vertical
+            stack.spacing = 16
+            stack.distribution = .fillProportionally
+            
+            addSubview(stack)
+            stack.anchor(top: topAnchor,left: leftAnchor,bottom: bottomAnchor,right: rightAnchor,paddingTop: 16,paddingLeft: 16,paddingBottom: 16,paddingRight: 16)
+            
+        case .Person:
+            let stack = UIStackView(arrangedSubviews: [heartImage,person2Label])
+            stack.axis = .horizontal
+            stack.spacing = 36
+            
+            addSubview(stack)
+            stack.centerY(inView: self)
+            stack.anchor(left : leftAnchor,paddingLeft: 24)
+            
+        }
+        
         
         guard let couple = couple else {return}
             

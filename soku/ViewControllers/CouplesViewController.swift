@@ -121,6 +121,7 @@ extension CouplesViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: CouplesCell.identifier, for: indexPath) as! CouplesCell
         
+        cell.type = .All
         cell.couple = couples[indexPath.row]
         
         return cell

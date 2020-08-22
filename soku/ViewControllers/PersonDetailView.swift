@@ -12,7 +12,11 @@ class PersonDetailView : UITableViewController  {
     
     let person : Person
     
-    var couples = [Couple]()
+    var couples = [Couple]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     //MARK: - Parts
     
@@ -53,11 +57,20 @@ class PersonDetailView : UITableViewController  {
     private func configureTV() {
         
         tableView.backgroundColor = .black
-        tableView.rowHeight = 80
+        tableView.separatorColor = .white
+        tableView.separatorStyle = .singleLine
+        tableView.rowHeight = 60
         tableView.register(CouplesCell.self, forCellReuseIdentifier: CouplesCell.identifier)
         
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
         tableView.tableHeaderView = headerView
+        
+        let bottomLine = UIView()
+        bottomLine.backgroundColor = .systemGray
+        
+        headerView.addSubview(bottomLine)
+        bottomLine.anchor(left : view.leftAnchor,bottom: headerView.bottomAnchor,right: view.rightAnchor,width: view.frame.width,height: 0.75)
+        
         tableView.tableFooterView = UIView()
 
         
@@ -68,7 +81,6 @@ class PersonDetailView : UITableViewController  {
     private func fetchCouples() {
         CoupleService.fetchCoupleFromPeson(person: person) { (couples) in
             self.couples = couples
-            print(couples.count)
             
         }
     }
@@ -78,14 +90,28 @@ class PersonDetailView : UITableViewController  {
 extension PersonDetailView {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return couples.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CouplesCell.identifier, for: indexPath) as! CouplesCell
         
+        cell.type = .Person
+        cell.couple = couples[indexPath.row]
+        
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let couple = couples[indexPath.row]
+        
+        let detailVC = CoupleDetailViewController(couple: couple)
+        navigationController?.pushViewController(detailVC, animated: true)
+        
     }
     
     
