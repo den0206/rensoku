@@ -313,8 +313,9 @@ extension CoupleDetailViewController :AddCommentCellDelegate, ChartsViewDelegate
             textView.text = ""
             
             self.comments.insert(comment, at: 0)
+            
             self.navigationController?.showPresentLoadindView(false)
-
+            
         }
     }
     

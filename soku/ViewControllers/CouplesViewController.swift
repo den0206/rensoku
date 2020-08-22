@@ -15,7 +15,6 @@ class CouplesViewController : UITableViewController {
     
     var couples = [Couple]() {
         didSet {
-            print(couples.count)
             tableView.reloadData()
         }
     }
@@ -46,6 +45,8 @@ class CouplesViewController : UITableViewController {
         tableView.separatorStyle = .singleLine
         tableView.rowHeight = 200
         tableView.register(CouplesCell.self, forCellReuseIdentifier: CouplesCell.identifier)
+        
+        tableView.tableFooterView = UIView()
         
         
     }

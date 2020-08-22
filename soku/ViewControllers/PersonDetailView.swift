@@ -30,8 +30,11 @@ class PersonDetailView : UITableViewController  {
         header.addSubview(pesronLabel)
         pesronLabel.center(inView: header)
         
+        
         return header
     }()
+    
+    let counterLabel = UILabel()
     
     init(peson : Person) {
         self.person = peson
@@ -57,12 +60,12 @@ class PersonDetailView : UITableViewController  {
     private func configureTV() {
         
         tableView.backgroundColor = .black
-        tableView.separatorColor = .white
+        tableView.separatorColor = .systemGray
         tableView.separatorStyle = .singleLine
         tableView.rowHeight = 60
         tableView.register(CouplesCell.self, forCellReuseIdentifier: CouplesCell.identifier)
         
-        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 130)
         tableView.tableHeaderView = headerView
         
         let bottomLine = UIView()
@@ -70,6 +73,11 @@ class PersonDetailView : UITableViewController  {
         
         headerView.addSubview(bottomLine)
         bottomLine.anchor(left : view.leftAnchor,bottom: headerView.bottomAnchor,right: view.rightAnchor,width: view.frame.width,height: 0.75)
+        
+        counterLabel.textColor = .systemGray
+        headerView.addSubview(counterLabel)
+        counterLabel.anchor(bottom : headerView.bottomAnchor,right: view.rightAnchor,paddingBottom: 8,paddingRight: 16)
+        
         
         tableView.tableFooterView = UIView()
 
@@ -79,9 +87,11 @@ class PersonDetailView : UITableViewController  {
     //MARK: - API
     
     private func fetchCouples() {
+        
         CoupleService.fetchCoupleFromPeson(person: person) { (couples) in
             self.couples = couples
             
+            self.counterLabel.text = "\(couples.count) カップル"
         }
     }
     

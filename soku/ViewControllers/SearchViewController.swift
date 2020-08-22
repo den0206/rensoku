@@ -55,7 +55,7 @@ class SearchViewController : UITableViewController {
         tableView.backgroundColor = .black
         tableView.rowHeight = 60
         tableView.separatorStyle = .singleLine
-        tableView.separatorColor = UIColor.white
+        tableView.separatorColor = .systemGray
         
         sexSegmentController.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
         
@@ -63,6 +63,9 @@ class SearchViewController : UITableViewController {
         tableView.tableFooterView = UIView()
         
         tableView.register(PersonCell.self, forCellReuseIdentifier: PersonCell.identifier)
+        
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
     
     private func configureSearch() {

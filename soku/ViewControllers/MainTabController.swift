@@ -33,16 +33,12 @@ class MainTabController : UITabBarController {
         let searchVC = SearchViewController()
         let nav2 = createNavController(image: UIImage(systemName: "magnifyingglass"), title: "サーチ", rootVC: searchVC)
         
-        
-        
-//        let detailVC = CoupleDetailViewController()
-//        let nav2 = createNavController(image: UIImage(systemName: "suit.heart.fill"), title: "Detail", rootVC: detailVC)
-//        nav2.navigationBar.isHidden = true
+
         
         UITabBar.appearance().barTintColor = UIColor.black
         viewControllers = [homeVC, nav1, nav2]
-        UITabBar.appearance().tintColor = .white
-        tabBar.unselectedItemTintColor = .black
+        UITabBar.appearance().tintColor = .systemPink
+        tabBar.unselectedItemTintColor = .white
 
         
     }
