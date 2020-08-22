@@ -45,7 +45,7 @@ class MainTabController : UITabBarController {
     
     //MARK: - API
     
-    private func checkAuth() {
+    func checkAuth() {
         
         if let currentUser = Auth.auth().currentUser {
            

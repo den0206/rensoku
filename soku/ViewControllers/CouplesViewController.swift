@@ -65,7 +65,7 @@ class CouplesViewController : UITableViewController {
     
     private func fetchCouples() {
         
-        self.navigationController?.showPresentLoadindView(true)
+        self.tabBarController?.showPresentLoadindView(true)
         
         
         CoupleService.fetchCouples(firstLoad: true, limit: 5, lastDocument: nil) { (couples, error, lastDocument) in
@@ -73,7 +73,7 @@ class CouplesViewController : UITableViewController {
             if error != nil {
                 self.refreshController.endRefreshing()
 
-                self.navigationController?.showPresentLoadindView(false)
+                self.tabBarController?.showPresentLoadindView(false)
                 self.showErrorAlert(message: error!.localizedDescription)
                 
                 return
@@ -84,7 +84,7 @@ class CouplesViewController : UITableViewController {
             
             self.refreshController.endRefreshing()
 
-            self.navigationController?.showPresentLoadindView(false)
+            self.tabBarController?.showPresentLoadindView(false)
         }
     }
     

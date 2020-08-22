@@ -99,10 +99,12 @@ class LoginViewController : UIViewController{
                 return
             }
             
-            DispatchQueue.main.async {
-                self.dismiss(animated: true, completion: nil)
-                
-            }
+            guard let window = UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else {return}
+            guard let tab = window.rootViewController as? MainTabController else {return}
+            
+            tab.checkAuth()
+            
+            self.dismiss(animated: true, completion: nil)
         }
         
         
