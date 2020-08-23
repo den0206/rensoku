@@ -29,7 +29,7 @@ class Service {
             
             UserDefaults.standard.setValue(uid, forKey: kCURRENTUID)
             UserDefaults.standard.synchronize()
-            return
+            completion(nil)
         }
     }
     

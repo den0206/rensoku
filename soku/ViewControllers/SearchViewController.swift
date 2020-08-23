@@ -80,12 +80,17 @@ class SearchViewController : UITableViewController {
         CoupleService.fetchAllPerson(filter: filter) { (persons) in
             
             self.persons = persons
+            
+            self.tabBarController?.showPresentLoadindView(false)
+
         }
     }
     
     //MARK: - Actions
     
     @objc func changeValue(_ sender : UISegmentedControl) {
+        
+        self.tabBarController?.showPresentLoadindView(true)
         
         switch sender.selectedSegmentIndex {
             
@@ -96,6 +101,9 @@ class SearchViewController : UITableViewController {
         case 2 :
             fetchPersons(filter: kWOMAN)
         default:
+            
+            self.tabBarController?.showPresentLoadindView(false)
+
             return
         }
     }
