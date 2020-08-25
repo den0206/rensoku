@@ -383,7 +383,17 @@ extension UIViewController {
     }
 }
 
+/// remove space
+
+extension String {
+    func remove(characterSet : CharacterSet) -> String {
+        return components(separatedBy: characterSet).joined()
+    }
+}
+
 /// 漢字 to カタカナ
+
+
 
 final class TextConverter {
     private init() {}

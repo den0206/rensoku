@@ -15,7 +15,8 @@ struct Person {
     
     init(name : String, proffesion : String, sex : String) {
         
-        self.name = name
+        /// remove space
+        self.name = name.remove(characterSet: .whitespaces)
         self.proffesion = proffesion
         self.sex = sex
     }

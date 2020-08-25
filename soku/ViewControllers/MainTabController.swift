@@ -90,19 +90,19 @@ class MainTabController : UITabBarController {
         
         
         appearence.configureWithOpaqueBackground()
-        appearence.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black]
-        appearence.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.black]
+        appearence.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
+        appearence.titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         
-        appearence.backgroundColor = .systemGroupedBackground
+        appearence.backgroundColor = .black
         
         appearence.shadowColor = .clear
         
         nav.navigationBar.standardAppearance = appearence
         nav.navigationBar.compactAppearance = appearence
         nav.navigationBar.scrollEdgeAppearance = appearence
-        
-        nav.navigationBar.tintColor = .black
-        nav.navigationBar.layer.borderColor = UIColor.white.cgColor
+        nav.navigationBar.tintColor = .white
+//        nav.navigationBar.tintColor = .black
+//        nav.navigationBar.layer.borderColor = UIColor.white.cgColor
         
         nav.tabBarItem.image = image
         nav.tabBarItem.title = title

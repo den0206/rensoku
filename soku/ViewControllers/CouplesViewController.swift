@@ -34,6 +34,8 @@ class CouplesViewController : UITableViewController {
     
     private func configureTV() {
         
+        navigationItem.title = "Couple"
+
         view.backgroundColor = .black
         
         tableView.refreshControl = refreshController

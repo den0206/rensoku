@@ -16,7 +16,7 @@ class HomeViewController : UIViewController {
     
     private let logoImageView : UIImageView = {
         let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "soku")
+        iv.image = #imageLiteral(resourceName: "soku-1")
         iv.contentMode = .scaleAspectFit
         iv.setDimensions(height: 250, width: 250)
         return iv

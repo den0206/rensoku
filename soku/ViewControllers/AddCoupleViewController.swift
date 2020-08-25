@@ -201,34 +201,36 @@ class AddCoupleViewController : UIViewController {
         
         guard let name1 = person_1NameTextField.text else {return}
         guard let name2 = person_2NameTextField.text else {return}
+
+        
         
         guard let sex1 = person_1SexSegmentController.titleForSegment(at: person_1SexSegmentController.selectedSegmentIndex) else {return}
-        
+
          guard let sex2 = person_2SexSegmentController.titleForSegment(at: person_2SexSegmentController.selectedSegmentIndex) else {return}
-        
+
         self.navigationController?.showPresentLoadindView(true)
-        
+
         let profession1 = person_1ProfessionTextField.text ?? ""
         let profession2 = person_2ProfessionTextField.text ?? ""
-        
+
         let coupleID = UUID().uuidString
         let userID = currentUID()
-        
-        
-        
+
+
+
         let person1 = Person(name: name1, proffesion: profession1, sex: sex1)
         let person2 = Person(name: name2, proffesion: profession2, sex: sex2)
-        
-        
+
+
         let couple = Couple(coupleId: coupleID, userId: userID, person_1: person1, person_2: person2, urlString: nil, date: Date())
-        
+
         Service.saveCouple(couple: couple, relationUrl: relationUrl) { (error) in
             self.dismiss(animated: true, completion: {
                 self.navigationController?.showPresentLoadindView(false)
-                
+
             })
         }
-        
+
         
         
     }
